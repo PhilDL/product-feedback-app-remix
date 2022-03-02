@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  useLoaderData,
-  useTransition,
-  useActionData,
-  redirect,
-  Form,
-  json,
-  useCatch,
-  Link,
-  useFetcher,
-} from "remix";
+import { useFetcher } from "remix";
 
 export type UpvoteProps = {
   active: boolean;
@@ -25,6 +15,7 @@ const Upvote: React.FC<UpvoteProps> = (props) => {
   return (
     <fetcher.Form method="post" action={`/api/feedbacks/${feedbackId}/upvote`}>
       <input type="hidden" name="upvote" value={active ? "false" : "true"} />
+      <input type="hidden" name="_action" value={"UPVOTE"} />
       <button
         className={`flex ${
           inlineStyle

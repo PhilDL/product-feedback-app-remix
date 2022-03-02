@@ -1,18 +1,17 @@
 import React from "react";
 import ButtonLink from "./UI/ButtonLink";
-import { Link } from "remix";
+import { Form, useFetcher, useSearchParams, useSubmit } from "remix";
+
 import SortDropdown from "./UI/SortDropdown";
 export type FeedbacksListHeaderProps = {
   feedbackCount: number;
-  onChangeSort: (sort: string) => void;
 };
 
 const FeedbacksListHeader: React.FC<FeedbacksListHeaderProps> = ({
   feedbackCount,
-  onChangeSort,
 }: FeedbacksListHeaderProps) => {
   const changeSortHandler = (sort: string) => {
-    onChangeSort(sort);
+    console.log("fjzoe");
   };
   return (
     <div className="flex flex-row gap-4 sm:rounded py-4 px-6 sm:px-4 justify-between items-center bg-blue-dark text-white">

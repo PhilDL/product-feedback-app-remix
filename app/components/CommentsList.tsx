@@ -1,25 +1,23 @@
 import React from "react";
 import Comment from "./Comment";
-import type { CommentModel } from "../types/models";
+import type { FeedbackComments, CommentWithReplies } from "~/utils/db.server";
 import { arrayToTree } from "performant-array-to-tree";
 
 export type CommentsListProps = {
-  comments?: CommentModel[];
+  comments?: FeedbackComments;
   totalComments: number;
-  onAddComment: () => void;
 };
 
 const CommentsList: React.FC<CommentsListProps> = ({
   comments,
   totalComments,
-  onAddComment,
 }: CommentsListProps) => {
-  const commentsTree: CommentModel[] = comments
+  const commentsTree = comments
     ? (arrayToTree(comments, {
         dataField: null,
         childrenField: "replies",
-        parentId: "parent_id",
-      }) as CommentModel[])
+        // parentId: "parent_id",
+      }) as CommentWithReplies[])
     : [];
 
   return (
@@ -30,11 +28,7 @@ const CommentsList: React.FC<CommentsListProps> = ({
       {comments && comments.length > 0 && (
         <div className="divide-y flex flex-col divide-gray-100">
           {commentsTree.map((comment) => (
-            <Comment
-              key={comment.id}
-              comment={comment}
-              onAddComment={onAddComment}
-            />
+            <Comment key={comment.id} comment={comment} />
           ))}
         </div>
       )}

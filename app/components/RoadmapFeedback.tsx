@@ -1,30 +1,28 @@
 import React from "react";
+import { Link } from "remix";
 import Tag from "./UI/Tag";
 import Upvote from "./UI/Upvote";
-import type { FeedbackModel } from "../types/models";
-// import { useUpvotedState } from "../utils/useUpvotes";
-import { Link } from "remix";
+import type { FeedbackWithCounts } from "~/utils/db.server";
+import type { User } from "@prisma/client";
 
 type RoadmapFeedbackProps = {
-  feedback: FeedbackModel;
-  upvoteCallBack?: (
-    feedbackSlug: string,
-    feedbackId: number,
-    oldUpvoteState: boolean
-  ) => void;
+  feedback: FeedbackWithCounts;
   statusColor: string;
   statusName: string;
+  user?: User | null;
 };
 
 const RoadmapFeedback: React.FC<RoadmapFeedbackProps> = ({
   feedback,
-  upvoteCallBack = () => {},
   statusColor,
   statusName,
+  user,
 }) => {
-  // const upvoted = useUpvotedState(feedback);
-  const upvoted = false;
-  const commentsCount = feedback.comments?.length || 0;
+  const upvoted =
+    user !== undefined &&
+    user !== null &&
+    feedback.upvotes.findIndex((user) => user.id === user.id) !== -1;
+  const commentsCount = feedback._count.comments;
 
   return (
     <div className="bg-white rounded overflow-hidden">
@@ -58,8 +56,7 @@ const RoadmapFeedback: React.FC<RoadmapFeedbackProps> = ({
         <div className="flex justify-between w-full items-center">
           <Upvote
             active={upvoted}
-            count={feedback.upvotes?.length || 0}
-            onClick={() => upvoteCallBack(feedback.slug, feedback.id, upvoted)}
+            count={feedback._count.upvotes}
             inlineStyle={true}
             feedbackId={feedback.id}
           />

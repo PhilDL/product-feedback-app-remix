@@ -1,7 +1,7 @@
 import React from "react";
-import { useField, FieldConfig } from "formik";
+import { useField } from "remix-validated-form";
 
-export interface TextAreaFieldProps extends FieldConfig<any> {
+export interface TextAreaFieldProps {
   label?: string;
   help?: string;
   className?: string;
@@ -11,7 +11,7 @@ export interface TextAreaFieldProps extends FieldConfig<any> {
 }
 
 const TextAreaField: React.FC<TextAreaFieldProps> = (props) => {
-  const [field, meta] = useField(props);
+  const { error, touched, getInputProps } = useField(props.name);
   const { label, help, className, labelSize = undefined, ...rest } = props;
   if (!label) {
     return (
@@ -22,15 +22,14 @@ const TextAreaField: React.FC<TextAreaFieldProps> = (props) => {
         </label>
         <textarea
           className={`py-3 px-6 text-gray-700 bg-gray-300 text-sm rounded-input ${className} ${
-            meta.touched && meta.error && "outline outline-red"
+            touched && error && "outline outline-red"
           }`}
           rows={5}
-          {...field}
+          {...getInputProps({ id: props.name })}
           {...rest}
-          id={props.name}
         />
-        {meta.touched && meta.error ? (
-          <small className="text-red">{meta.error}</small>
+        {touched && error ? (
+          <small className="text-red">{error}</small>
         ) : (
           <small></small>
         )}
@@ -50,15 +49,14 @@ const TextAreaField: React.FC<TextAreaFieldProps> = (props) => {
       </label>
       <textarea
         className={`py-3 px-6 text-gray-700 bg-gray-300 text-sm rounded-input ${className} ${
-          meta.touched && meta.error && "outline outline-red"
+          touched && error && "outline outline-red"
         }`}
         rows={5}
-        {...field}
+        {...getInputProps({ id: props.name })}
         {...rest}
-        id={props.name}
       />
-      {meta.touched && meta.error ? (
-        <small className="text-red">{meta.error}</small>
+      {touched && error ? (
+        <small className="text-red">{error}</small>
       ) : (
         <small></small>
       )}

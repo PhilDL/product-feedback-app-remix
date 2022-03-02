@@ -9,7 +9,6 @@ export type MobileMenuProps = {
   isOpen: boolean;
   onDismiss: () => void;
   categories: Category[];
-  onChangeCategory: (id: string | null) => void;
   selectedCategoryId: string | null;
   feedbackStatuses: FeedbackStatusAggregate[];
 };
@@ -18,7 +17,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   isOpen,
   onDismiss,
   categories,
-  onChangeCategory,
   selectedCategoryId,
   feedbackStatuses,
 }) => {
@@ -38,7 +36,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
       >
         <TagsCloud
           tags={categories}
-          onChangeCategory={onChangeCategory}
           selectedCategoryId={selectedCategoryId}
           className=""
         />

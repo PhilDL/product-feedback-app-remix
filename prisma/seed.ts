@@ -15,26 +15,31 @@ async function seed() {
   const UICategory = await db.category.create({
     data: {
       name: "UI",
+      slug: "ui",
     },
   });
   const UXCategory = await db.category.create({
     data: {
       name: "UX",
+      slug: "ux",
     },
   });
   const bugCategory = await db.category.create({
     data: {
       name: "Bug",
+      slug: "bug",
     },
   });
   const enhancementCategory = await db.category.create({
     data: {
       name: "Enhancement",
+      slug: "enhancement",
     },
   });
   const featureCategory = await db.category.create({
     data: {
       name: "Feature",
+      slug: "feature",
     },
   });
 

@@ -1,21 +1,17 @@
 import React from "react";
 import RoadmapFeedback from "./RoadmapFeedback";
-import type { FeedbackModel } from "../types/models";
+import type { FeedbacksWithCounts } from "~/utils/db.server";
+import type { User } from "@prisma/client";
 
 type RoadmapFeedbacksListProps = {
-  feedbacks: FeedbackModel[];
-  upvoteCallBack?: (
-    feedbackSlug: string,
-    feedbackId: number,
-    oldUpvoteState: boolean
-  ) => void;
+  feedbacks: FeedbacksWithCounts;
   statusColor: string;
   statusName: string;
+  user?: User | null;
 };
 
 const RoadmapFeedbacksList: React.FC<RoadmapFeedbacksListProps> = ({
   feedbacks,
-  upvoteCallBack = () => {},
   statusColor,
   statusName,
 }) => {
@@ -28,7 +24,6 @@ const RoadmapFeedbacksList: React.FC<RoadmapFeedbacksListProps> = ({
         <RoadmapFeedback
           key={feedback.id}
           feedback={feedback}
-          upvoteCallBack={upvoteCallBack}
           statusColor={statusColor}
           statusName={statusName}
         />

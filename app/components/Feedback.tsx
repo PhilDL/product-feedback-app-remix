@@ -1,30 +1,19 @@
 import React from "react";
+import { Link } from "remix";
 import Tag from "./UI/Tag";
 import Card from "./UI/Card";
 import Upvote from "./UI/Upvote";
-import type { FeedbackModel } from "../types/models";
-// import { useUpvotedState } from "../utils/useUpvotes";
-import { Link } from "remix";
 import type { User } from "@prisma/client";
-import type { FeedbacksWithCounts } from "~/utils/db.server";
-type ArrayElement<ArrayType extends readonly unknown[]> =
-  ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
-type FeedbackWithCounts = ArrayElement<FeedbacksWithCounts>;
+import type { FeedbackWithCounts } from "~/utils/db.server";
 
 export type FeedbackProps = {
   feedback: FeedbackWithCounts;
-  upvoteCallBack?: (
-    feedbackSlug: string,
-    feedbackId: string,
-    oldUpvoteState: boolean
-  ) => void;
   withHeading?: boolean;
   user?: User | null;
 };
 
 const Feedback: React.FC<FeedbackProps> = ({
   feedback,
-  upvoteCallBack = () => {},
   withHeading = false,
   user,
 }: FeedbackProps) => {
@@ -41,7 +30,6 @@ const Feedback: React.FC<FeedbackProps> = ({
         <Upvote
           active={upvoted}
           count={feedback._count.upvotes}
-          onClick={() => upvoteCallBack(feedback.slug, feedback.id, upvoted)}
           feedbackId={feedback.id}
         />
       </div>
@@ -60,7 +48,7 @@ const Feedback: React.FC<FeedbackProps> = ({
           <p className="text-gray-500 font-normal">{feedback.description}</p>
         </Link>
         <div className="mt-4">
-          <Tag>{feedback.category.name}</Tag>
+          <Tag slug={feedback.category.slug}>{feedback.category.name}</Tag>
         </div>
       </div>
       <div className="flex flex-row justify-between w-full md:w-auto md:self-center md:flex-1">
@@ -68,7 +56,6 @@ const Feedback: React.FC<FeedbackProps> = ({
           <Upvote
             active={upvoted}
             count={feedback._count.upvotes}
-            onClick={() => upvoteCallBack(feedback.slug, feedback.id, upvoted)}
             inlineStyle={true}
             feedbackId={feedback.id}
           />

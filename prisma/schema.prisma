@@ -28,6 +28,7 @@ model Category {
   id        String     @id @default(uuid())
   createdAt DateTime   @default(now())
   name      String     @unique
+  slug      String     @unique
   feedbacks Feedback[]
 }
 

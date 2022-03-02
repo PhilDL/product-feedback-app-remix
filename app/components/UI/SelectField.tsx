@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useField, FieldConfig } from "formik";
+import { useField } from "remix-validated-form";
 import {
   ListboxInput,
   ListboxButton,
@@ -13,7 +13,7 @@ export interface Option {
   name: string;
   [x: string]: any;
 }
-export interface SelectFieldProps extends FieldConfig<any> {
+export interface SelectFieldProps {
   options: Option[];
   defaultValue?: number | string;
   inputName?: string;
@@ -26,7 +26,7 @@ export interface SelectFieldProps extends FieldConfig<any> {
 }
 
 const SelectField: React.FC<SelectFieldProps> = (props) => {
-  const [field, meta, helpers] = useField(props);
+  const { error, touched, getInputProps } = useField(props.name);
   const {
     options,
     defaultValue,
@@ -44,12 +44,6 @@ const SelectField: React.FC<SelectFieldProps> = (props) => {
     setValue(value);
   };
 
-  useEffect(() => {
-    if (field.value !== value) {
-      helpers.setValue(value);
-      helpers.setTouched(true);
-    }
-  }, [value, field.value, helpers]);
   return (
     <div className={`flex flex-col gap-3 ${containerClassName}`}>
       <label htmlFor={inputName} className="text-gray-700 text-sm font-bold">
@@ -57,12 +51,10 @@ const SelectField: React.FC<SelectFieldProps> = (props) => {
       </label>
       <small className="text-gray-500 text-sm font-normal">{help}</small>
       <ListboxInput
-        {...field}
         name={inputName}
         id={inputName}
         value={`${value}`}
         onChange={changeHandler}
-        form={form}
       >
         {({ value, valueLabel, isExpanded }) => (
           <>
