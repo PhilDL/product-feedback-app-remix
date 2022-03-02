@@ -14,6 +14,7 @@ const RoadmapFeedbacksList: React.FC<RoadmapFeedbacksListProps> = ({
   feedbacks,
   statusColor,
   statusName,
+  user,
 }) => {
   if (feedbacks.length === 0) {
     return <p>No Feedbacks</p>;
@@ -26,6 +27,7 @@ const RoadmapFeedbacksList: React.FC<RoadmapFeedbacksListProps> = ({
           feedback={feedback}
           statusColor={statusColor}
           statusName={statusName}
+          user={user}
         />
       ))}
     </div>
