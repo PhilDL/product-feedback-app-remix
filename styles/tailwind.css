@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  background-color: #f2f2f2;
+}
+
+.with-replies:before {
+  content: "";
+  position: absolute;
+  width: 0px;
+  height: calc(100% - 3.7rem);
+  border: 1px solid rgba(229, 231, 235);
+  left: 0;
+  top: 3.7rem;
+}
+
+.with-replies section:last-of-type {
+  position: relative;
+}
+.with-replies section:last-of-type:before {
+  content: "";
+  position: absolute;
+  width: 0px;
+  height: calc(100% - 2rem);
+  border: 2px solid white;
+  left: 0;
+  top: 2rem;
+}
+html {
+  /*
+    Silence the warning about missing Reach Dialog styles
+  */
+  --reach-dialog: 1;
+  --reach-listbox: 1;
+}
