@@ -44,6 +44,9 @@ export const action: ActionFunction = async ({ request, params }) => {
     failureRedirect: "/login",
   });
   invariant(params.slug);
+  if (user.role !== "ADMIN") {
+    return redirect(`/feedback/${params.slug}`);
+  }
   const form = await request.formData();
   const result = await validator.validate(form);
   if (result.error) return validationError(result.error);
@@ -65,10 +68,15 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export let loader: LoaderFunction = async ({ request, params }) => {
-  await auth.isAuthenticated(request, {
+  const user = await auth.isAuthenticated(request, {
     failureRedirect: "/login",
   });
   invariant(params.slug);
+  console.log("user", user);
+  console.log("user.role", user.role);
+  if (user.role !== "ADMIN") {
+    return redirect(`/feedback/${params.slug}`);
+  }
   const feedback = await getFeedbackBySlug(params.slug);
   const statuses = [
     { name: "Planned", id: "planned" },
@@ -79,14 +87,14 @@ export let loader: LoaderFunction = async ({ request, params }) => {
   const data: LoaderData = {
     categories: await db.category.findMany(),
     feedback: feedback,
-    user: await auth.isAuthenticated(request, { failureRedirect: "/login" }),
+    user: user,
     statuses: statuses,
   };
   return data;
 };
 
 const NewFeedback = () => {
-  const { user, categories, statuses, feedback } = useLoaderData<LoaderData>();
+  const { categories, statuses, feedback } = useLoaderData<LoaderData>();
 
   return (
     <div className="flex min-h-screen py-7 px-6 md:px-0 container mx-auto max-w-xl">

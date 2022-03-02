@@ -14,7 +14,7 @@ const Footer: React.FC<Props> = ({ user }) => {
         <>
           Logged-in as{" "}
           <span className="text-gray-500 ml-1">{user.username}</span>
-          <Form method="post">
+          <Form method="post" action="/api/logout">
             <button className="cursor-pointer text-fushia hover:text-fushia-light ml-1">
               Click here to log-out
             </button>
