@@ -8,13 +8,13 @@ import {
   SelectField,
   TextAreaField,
 } from "~/components/UI";
-import { Link, json, useLoaderData } from "remix";
-import { auth, sessionStorage } from "~/auth.server";
+import { useLoaderData } from "remix";
+import { auth } from "~/auth.server";
 import { ValidatedForm, validationError } from "remix-validated-form";
 import { withYup } from "@remix-validated-form/with-yup";
 import * as Yup from "yup";
 import { db, slugify, getFeedbackBySlug } from "~/utils/db.server";
-import type { Category, Feedback, User } from "@prisma/client";
+import type { Category, User } from "@prisma/client";
 import type { FeedbackWithCounts } from "~/utils/db.server";
 import invariant from "tiny-invariant";
 
@@ -52,7 +52,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   if (result.error) return validationError(result.error);
   const { title, categoryId, description, status } = result.data;
   const slug = slugify(title);
-  const updatedFeedback = await db.feedback.update({
+  await db.feedback.update({
     where: {
       slug: params.slug,
     },
@@ -72,8 +72,6 @@ export let loader: LoaderFunction = async ({ request, params }) => {
     failureRedirect: "/login",
   });
   invariant(params.slug);
-  console.log("user", user);
-  console.log("user.role", user.role);
   if (user.role !== "ADMIN") {
     return redirect(`/feedback/${params.slug}`);
   }
