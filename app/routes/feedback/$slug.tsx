@@ -10,33 +10,19 @@ import type { LoaderFunction, ActionFunction } from "remix";
 import type { User } from "@prisma/client";
 import type { FeedbackWithCounts } from "~/utils/db.server";
 
-type ActionData = {
-  formError?: string;
-  fieldErrors?: {
-    feedbackId: string | undefined;
-    upvote: boolean | undefined;
-  };
-  fields?: {
-    feedbackId: string;
-    upvote: boolean;
-  };
-  message?: string;
-};
-
-const badRequest = (data: ActionData) => json(data, { status: 400 });
-
-export const action: ActionFunction = async ({ request }) => {
-  // const userId = await requireUserId(request);
+export const action: ActionFunction = async ({ request, params }) => {
   const user = await auth.isAuthenticated(request, {
     failureRedirect: "/login",
   });
+  invariant(params.slug);
+  const feedback = await getFeedbackBySlug(params.slug);
+  invariant(feedback, "Feedback not found");
+
   const data = await parseStringFormData(request);
-  console.log(data);
   invariant(data._action, "action is required");
 
   switch (data._action) {
     case "ADD_COMMENT": {
-      const feedbackId = data.feedbackId;
       const parentId = data.parentId || undefined;
       invariant(data.content, "content is required");
       let newComment = null;
@@ -50,7 +36,7 @@ export const action: ActionFunction = async ({ request }) => {
               connect: { id: parentId },
             },
             feedback: {
-              connect: { id: feedbackId },
+              connect: { id: feedback.id },
             },
             content: data.content,
           },
@@ -63,7 +49,7 @@ export const action: ActionFunction = async ({ request }) => {
             },
             content: data.content,
             feedback: {
-              connect: { id: feedbackId },
+              connect: { id: feedback.id },
             },
           },
         });
@@ -74,7 +60,7 @@ export const action: ActionFunction = async ({ request }) => {
       const shouldUpvote = data.upvote === "true";
       if (shouldUpvote) {
         await db.feedback.update({
-          where: { id: data.feedbackId },
+          where: { id: feedback.id },
           data: {
             upvotes: {
               connect: { id: user.id },
@@ -83,7 +69,7 @@ export const action: ActionFunction = async ({ request }) => {
         });
       } else {
         await db.feedback.update({
-          where: { id: data.feedbackId },
+          where: { id: feedback.id },
           data: {
             upvotes: {
               disconnect: { id: user.id },
@@ -136,7 +122,7 @@ export default function Index() {
           comments={comments || []}
           totalComments={comments?.length || 0}
         />
-        <AddCommentForm feedbackId={feedback.id} />
+        <AddCommentForm />
       </main>
     </div>
   );

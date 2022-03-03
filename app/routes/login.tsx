@@ -25,7 +25,6 @@ export const action: ActionFunction = async ({ request }) => {
   if (result.error) {
     return validationError(result.error, result.submittedData);
   }
-
   await auth.authenticate("form", request, {
     successRedirect: "/",
     failureRedirect: "/login",

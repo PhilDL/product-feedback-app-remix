@@ -35,7 +35,6 @@ const CommentReply: React.FC<Props> = ({ comment, onSubmit }: Props) => {
       <label htmlFor="content" className="sr-only">
         Reply to {comment.author.fullName}
       </label>
-      <input type="hidden" value={comment.feedbackId} name="feedbackId" />
       <input type="hidden" value={comment.id} name="parentId" />
       <input type="hidden" name="_action" value={"ADD_COMMENT"} />
       <textarea

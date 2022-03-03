@@ -60,7 +60,7 @@ const RoadmapFeedback: React.FC<RoadmapFeedbackProps> = ({
             active={upvoted}
             count={feedback._count.upvotes}
             inlineStyle={true}
-            feedbackId={feedback.id}
+            feedbackSlug={feedback.slug}
           />
           <span className="self-center flex flex-row gap-3 items-center">
             <svg width="18" height="16" xmlns="http://www.w3.org/2000/svg">

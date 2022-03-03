@@ -32,7 +32,7 @@ const Feedback: React.FC<FeedbackProps> = ({
         <Upvote
           active={upvoted}
           count={feedback._count.upvotes}
-          feedbackId={feedback.id}
+          feedbackSlug={feedback.slug}
         />
       </div>
       <div className="flex flex-col w-full">
@@ -59,7 +59,7 @@ const Feedback: React.FC<FeedbackProps> = ({
             active={upvoted}
             count={feedback._count.upvotes}
             inlineStyle={true}
-            feedbackId={feedback.id}
+            feedbackSlug={feedback.slug}
           />
         </div>
         <span className="flex flex-row gap-3 items-center">

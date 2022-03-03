@@ -4,16 +4,16 @@ import { useFetcher } from 'remix';
 export type UpvoteProps = {
   active: boolean;
   count: number;
-  feedbackId: string;
+  feedbackSlug: string;
   [x: string]: any;
   inlineStyle?: boolean;
 };
 
 const Upvote: React.FC<UpvoteProps> = (props) => {
-  const { count, active, inlineStyle, feedbackId, ...rest } = props;
+  const { count, active, inlineStyle, feedbackSlug, ...rest } = props;
   let fetcher = useFetcher();
   return (
-    <fetcher.Form method="post" action={`/api/feedbacks/${feedbackId}/upvote`}>
+    <fetcher.Form method="post" action={`/feedback/${feedbackSlug}`}>
       <input type="hidden" name="upvote" value={active ? "false" : "true"} />
       <input type="hidden" name="_action" value={"UPVOTE"} />
       <button

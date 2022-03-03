@@ -12,10 +12,6 @@ const Comment: React.FC<CommentProps> = ({ comment }: CommentProps) => {
   const { author, content, parent, parentId, replies } = comment;
   const [showReplyBox, setShowReplyBox] = useState<boolean>(false);
 
-  const closeReplayAndPropagate = () => {
-    setShowReplyBox(false);
-  };
-
   return (
     <section className="feedback-comment w-full">
       <div

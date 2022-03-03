@@ -4,24 +4,15 @@ import { ValidatedForm } from 'remix-validated-form';
 import * as Yup from 'yup';
 import { Button, Card, TextAreaField } from '~/components/UI';
 
-export type AddCommentFormProps = {
-  feedbackId: string | number;
-  replyToCommentId?: string | number;
-};
-
 export const addCommentFormValidator = withYup(
   Yup.object().shape({
     content: Yup.string()
       .required("Required")
       .max(250, "Must be at max 250 characters"),
-    feedbackId: Yup.string().required("Required"),
   })
 );
 
-const AddCommentForm: React.FC<AddCommentFormProps> = ({
-  feedbackId,
-}: AddCommentFormProps) => {
-  const [error, setError] = useState<string | null>(null);
+const AddCommentForm: React.FC = () => {
   return (
     <Card>
       <ValidatedForm
@@ -29,8 +20,6 @@ const AddCommentForm: React.FC<AddCommentFormProps> = ({
         validator={addCommentFormValidator}
         className="flex flex-col gap-6 w-full"
       >
-        {error && <div className="text-red">{error}</div>}
-        <input type="hidden" value={feedbackId} name="feedbackId" />
         <input type="hidden" name="_action" value={"ADD_COMMENT"} />
         <TextAreaField
           name="content"
