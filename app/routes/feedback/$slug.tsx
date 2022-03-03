@@ -7,7 +7,7 @@ import { db, FeedbackComments, getAllFeedbackComments, getFeedbackBySlug } from 
 import { parseStringFormData } from '~/utils/http';
 
 import type { LoaderFunction, ActionFunction } from "remix";
-import type { User } from "@prisma/client";
+import type { User } from "~/types";
 import type { FeedbackWithCounts } from "~/utils/db.server";
 
 export const action: ActionFunction = async ({ request, params }) => {

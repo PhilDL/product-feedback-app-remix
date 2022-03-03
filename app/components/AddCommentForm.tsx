@@ -1,5 +1,5 @@
 import { withYup } from '@remix-validated-form/with-yup';
-import React, { useState } from 'react';
+import React from 'react';
 import { ValidatedForm } from 'remix-validated-form';
 import * as Yup from 'yup';
 import { Button, Card, TextAreaField } from '~/components/UI';

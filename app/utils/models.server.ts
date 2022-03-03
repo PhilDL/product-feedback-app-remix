@@ -1,26 +1,4 @@
-import { Prisma, PrismaClient } from '@prisma/client';
-
-let db: PrismaClient;
-
-declare global {
-  var __db: PrismaClient | undefined;
-}
-
-// this is needed because in development we don't want to restart
-// the server with every change, but we want to make sure we don't
-// create a new connection to the DB with every change either.
-if (process.env.NODE_ENV === "production") {
-  db = new PrismaClient();
-  db.$connect();
-} else {
-  if (!global.__db) {
-    global.__db = new PrismaClient();
-    global.__db.$connect();
-  }
-  db = global.__db;
-}
-
-export { db };
+import { db } from './db.server';
 
 export async function getFeedbacksWithCounts(
   sort: string,
@@ -101,11 +79,6 @@ export const getFeedbacksWithCountsAndStatus = async () => {
   return feedbacks;
 };
 
-type ThenArg<T> = T extends PromiseLike<infer U> ? U : T;
-export type FeedbacksWithCounts = ThenArg<
-  ReturnType<typeof getFeedbacksWithCounts>
->;
-
 export const getFeedbackBySlug = (slug: string) => {
   const feedback = db.feedback.findUnique({
     where: {
@@ -124,10 +97,6 @@ export const getFeedbackBySlug = (slug: string) => {
   });
   return feedback;
 };
-
-export type FeedbackWithCountsOrNull = ThenArg<
-  ReturnType<typeof getFeedbackBySlug>
->;
 
 export const getAllFeedbackComments = async (feedbackId: string) => {
   const comments = db.comment.findMany({
@@ -150,43 +119,6 @@ export const getAllFeedbackComments = async (feedbackId: string) => {
   });
   return comments;
 };
-export type FeedbackComments = ThenArg<
-  ReturnType<typeof getAllFeedbackComments>
->;
-
-const commentWithAuthorAndParent = Prisma.validator<Prisma.CommentArgs>()({
-  include: {
-    author: true,
-    parent: {
-      include: {
-        author: true,
-      },
-    },
-  },
-});
-export type FeedbackComment = Prisma.CommentGetPayload<
-  typeof commentWithAuthorAndParent
->;
-
-export type CommentWithReplies = FeedbackComment & {
-  replies: CommentWithReplies[];
-};
-
-const feedbacksWithCounts = Prisma.validator<Prisma.FeedbackArgs>()({
-  include: {
-    _count: {
-      select: { comments: true, upvotes: true },
-    },
-    user: true,
-    category: true,
-    upvotes: {
-      select: { id: true },
-    },
-  },
-});
-export type FeedbackWithCounts = Prisma.FeedbackGetPayload<
-  typeof feedbacksWithCounts
->;
 
 export const getFeedbackStatuses = async () => {
   const feedbackStatuses = [
@@ -215,8 +147,6 @@ export const getFeedbackStatuses = async () => {
   return feedbackStatuses;
 };
 
-export type FeedbackStatuses = ThenArg<ReturnType<typeof getFeedbackStatuses>>;
-
 /**
  * Slugify a string
  * @param args Input string to slugify
@@ -233,12 +163,3 @@ export const slugify = (...args: (string | number)[]): string => {
     .replace(/[^a-z0-9 ]/g, "") // remove all chars not letters, numbers and spaces (to be replaced)
     .replace(/\s+/g, "-"); // separator
 };
-
-export interface FeedbackStatusAggregate {
-  name: string;
-  key: string;
-  count: number;
-  color: string;
-  feedbacks: FeedbacksWithCounts;
-  description: string;
-}

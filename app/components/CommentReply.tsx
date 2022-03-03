@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Form, useTransition } from 'remix';
 
 import Button from './UI/Button';
@@ -19,12 +19,16 @@ const CommentReply: React.FC<Props> = ({ comment, onSubmit }: Props) => {
 
   const formRef = useRef<HTMLFormElement>(null!);
 
+  const memoizedOnSubmit = useCallback(() => {
+    onSubmit();
+  }, [onSubmit]);
+
   useEffect(() => {
     if (isAdding) {
       formRef.current?.reset();
-      onSubmit();
+      memoizedOnSubmit();
     }
-  }, [isAdding]);
+  }, [isAdding, memoizedOnSubmit]);
 
   return (
     <Form

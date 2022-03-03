@@ -3,10 +3,10 @@ import { Link } from 'remix';
 
 import Card from './UI/Card';
 
-import type { FeedbackStatusAggregate } from "../types/models";
+import type { FeedbackStatuses } from "~/utils/db.server";
 
 export type RoadmapMenuProps = {
-  feedbackStatuses: FeedbackStatusAggregate[];
+  feedbackStatuses: FeedbackStatuses;
   className?: string;
 };
 

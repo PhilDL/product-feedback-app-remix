@@ -4,7 +4,7 @@ import { Authenticator, AuthorizationError } from 'remix-auth';
 import { FormStrategy } from 'remix-auth-form';
 import { db } from '~/utils/db.server';
 
-import type { User } from "@prisma/client";
+import type { User } from "~/types";
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {

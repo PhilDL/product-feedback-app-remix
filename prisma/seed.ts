@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
+
 const db = new PrismaClient();
 
 async function seed() {
@@ -72,82 +73,6 @@ async function seed() {
       categoryId: featureCategory.id,
     },
   });
-
-  //   {
-  //     id: 18,
-  //     created_at: "2022-02-24T20:45:04.325744+00:00",
-  //     title: "One-click portfolio generation",
-  //     user_id: "201d83bd-d464-4d17-9e16-654942e3af15",
-  //     description:
-  //       "Add ability to create professional looking portfolio from profile.",
-  //     slug: "oneclick-portfolio-generation",
-  //     category_id: 5,
-  //     status: undefined,
-  //     category: {
-  //       id: 5,
-  //       name: "Feature",
-  //       slug: "feature",
-  //     },
-  //     comments: [],
-  //     user: {
-  //       id: "201d83bd-d464-4d17-9e16-654942e3af15",
-  //       username: "_philDL",
-  //       avatar_url:
-  //         "https://avatars.dicebear.com/api/bottts/philippe-lattention.svg",
-  //       full_name: "Philippe L'ATTENTION",
-  //     },
-  //     upvotes: [],
-  //   },
-  //   {
-  //     id: 19,
-  //     created_at: "2022-02-24T20:45:16.328527+00:00",
-  //     title: "Animated solution screenshots",
-  //     user_id: "201d83bd-d464-4d17-9e16-654942e3af15",
-  //     description:
-  //       "Screenshots of solutions with animations don’t display correctly.",
-  //     slug: "animated-solution-screenshots",
-  //     category_id: 3,
-  //     status: "in-progress",
-  //     category: {
-  //       id: 3,
-  //       name: "Bug",
-  //       slug: "bug",
-  //     },
-  //     comments: [],
-  //     user: {
-  //       id: "201d83bd-d464-4d17-9e16-654942e3af15",
-  //       username: "_philDL",
-  //       avatar_url:
-  //         "https://avatars.dicebear.com/api/bottts/philippe-lattention.svg",
-  //       full_name: "Philippe L'ATTENTION",
-  //     },
-  //     upvotes: [],
-  //   },
-  //   {
-  //     id: 21,
-  //     created_at: "2022-02-24T20:46:35.982967+00:00",
-  //     title: "Bookmark challenges",
-  //     user_id: "201d83bd-d464-4d17-9e16-654942e3af15",
-  //     description:
-  //       "It would be great to be able to bookmark challenges to take later on.",
-  //     slug: "bookmark-challenges",
-  //     category_id: 5,
-  //     status: "in-progress",
-  //     category: {
-  //       id: 5,
-  //       name: "Feature",
-  //       slug: "feature",
-  //     },
-  //     comments: [],
-  //     user: {
-  //       id: "201d83bd-d464-4d17-9e16-654942e3af15",
-  //       username: "_philDL",
-  //       avatar_url:
-  //         "https://avatars.dicebear.com/api/bottts/philippe-lattention.svg",
-  //       full_name: "Philippe L'ATTENTION",
-  //     },
-  //     upvotes: [],
-  //   },
 }
 
 seed();

@@ -1,6 +1,5 @@
 import { ListboxButton, ListboxInput, ListboxList, ListboxOption, ListboxPopover } from '@reach/listbox';
 import React, { useState } from 'react';
-import { useField } from 'remix-validated-form';
 
 export interface Option {
   id: number | string;
@@ -20,7 +19,6 @@ export interface SelectFieldProps {
 }
 
 const SelectField: React.FC<SelectFieldProps> = (props) => {
-  const { error, touched, getInputProps } = useField(props.name);
   const {
     options,
     defaultValue,
@@ -28,9 +26,7 @@ const SelectField: React.FC<SelectFieldProps> = (props) => {
     inputName,
     help,
     label,
-    form,
     containerClassName,
-    ...rest
   } = props;
   const [value, setValue] = useState(defaultValue);
 

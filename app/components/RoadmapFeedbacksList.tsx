@@ -3,7 +3,7 @@ import React from 'react';
 import RoadmapFeedback from './RoadmapFeedback';
 
 import type { FeedbacksWithCounts } from "~/utils/db.server";
-import type { User } from "@prisma/client";
+import type { User } from "~/types";
 
 type RoadmapFeedbacksListProps = {
   feedbacks: FeedbacksWithCounts;

@@ -10,9 +10,6 @@ export type FeedbacksListHeaderProps = {
 const FeedbacksListHeader: React.FC<FeedbacksListHeaderProps> = ({
   feedbackCount,
 }: FeedbacksListHeaderProps) => {
-  const changeSortHandler = (sort: string) => {
-    console.log("fjzoe");
-  };
   return (
     <div className="flex flex-row gap-4 sm:rounded py-4 px-6 sm:px-4 justify-between items-center bg-blue-dark text-white">
       <div className="hidden sm:flex sm:gap-3">
@@ -32,7 +29,6 @@ const FeedbacksListHeader: React.FC<FeedbacksListHeaderProps> = ({
       </div>
       <SortDropdown
         defaultValue="most-upvotes"
-        onChangeSort={changeSortHandler}
         options={{
           "most-upvotes": "Most Upvotes",
           "least-upvotes": "Least Upvotes",

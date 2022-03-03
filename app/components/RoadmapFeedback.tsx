@@ -5,7 +5,7 @@ import Tag from './UI/Tag';
 import Upvote from './UI/Upvote';
 
 import type { FeedbackWithCounts } from "~/utils/db.server";
-import type { User } from "@prisma/client";
+import type { User } from "~/types";
 
 type RoadmapFeedbackProps = {
   feedback: FeedbackWithCounts;
@@ -23,7 +23,9 @@ const RoadmapFeedback: React.FC<RoadmapFeedbackProps> = ({
   const upvoted =
     user !== undefined &&
     user !== null &&
-    feedback.upvotes.findIndex((user) => user.id === user.id) !== -1;
+    feedback.upvotes.findIndex(
+      (feedbackUser) => feedbackUser.id === user.id
+    ) !== -1;
   const commentsCount = feedback._count.comments;
 
   return (
@@ -41,14 +43,10 @@ const RoadmapFeedback: React.FC<RoadmapFeedbackProps> = ({
         </span>
         <div className="flex flex-col w-full mb-2">
           <Link to={`/feedback/${feedback.slug}`}>
-            <a>
-              <h3 className="text-gray-700 text-lg font-bold mb-1 hover:text-blue">
-                {feedback.title}
-              </h3>
-              <p className="text-gray-500 font-normal">
-                {feedback.description}
-              </p>
-            </a>
+            <h3 className="text-gray-700 text-lg font-bold mb-1 hover:text-blue">
+              {feedback.title}
+            </h3>
+            <p className="text-gray-500 font-normal">{feedback.description}</p>
           </Link>
 
           <div className="mt-4">

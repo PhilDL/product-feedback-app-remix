@@ -5,17 +5,9 @@ import { ButtonLink, GoBackLink } from '~/components/UI';
 import { getFeedbacksWithCountsAndStatus } from '~/utils/db.server';
 
 import type { LoaderFunction } from "remix";
-import type { User } from "@prisma/client";
-import type { FeedbacksWithCounts } from "~/utils/db.server";
+import type { User } from "~/types";
+import type { FeedbackStatusAggregate } from "~/utils/db.server";
 
-export interface FeedbackStatusAggregate {
-  name: string;
-  key: string;
-  count: number;
-  color: string;
-  feedbacks: FeedbacksWithCounts;
-  description: string;
-}
 export type LoaderData = {
   feedbackStatuses: FeedbackStatusAggregate[];
 };

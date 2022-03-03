@@ -5,7 +5,7 @@ import FeedbacksListHeader from '~/components/FeedbacksListHeader';
 import { getFeedbacksWithCounts } from '~/utils/db.server';
 
 import type { LoaderFunction } from "remix";
-import type { User } from "@prisma/client";
+import type { User } from "~/types";
 import type { FeedbacksWithCounts } from "~/utils/db.server";
 
 export type LoaderData = {

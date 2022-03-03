@@ -7,7 +7,7 @@ import { auth } from '~/auth.server';
 import { Button, ButtonLink, Card, GoBackLink, SelectField, TextAreaField, TextField } from '~/components/UI';
 import { db, getFeedbackBySlug, slugify } from '~/utils/db.server';
 
-import type { Category, User } from "@prisma/client";
+import type { Category, User } from "~/types";
 import type { FeedbackWithCounts } from "~/utils/db.server";
 
 export type FeedbackStatus = {

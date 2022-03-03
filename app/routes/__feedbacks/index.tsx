@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import React from 'react';
 import { useLoaderData, useOutletContext } from 'remix';
 import { auth } from '~/auth.server';
 import FeedbacksList from '~/components/FeedbacksList';
@@ -6,7 +6,7 @@ import FeedbacksListHeader from '~/components/FeedbacksListHeader';
 import { getFeedbacksWithCounts } from '~/utils/db.server';
 
 import type { LoaderFunction } from "remix";
-import type { User } from "@prisma/client";
+import type { User } from "~/types";
 import type { FeedbacksWithCounts } from "~/utils/db.server";
 
 export type LoaderData = {

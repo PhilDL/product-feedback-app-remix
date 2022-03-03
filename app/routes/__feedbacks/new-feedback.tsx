@@ -6,7 +6,7 @@ import { auth } from '~/auth.server';
 import { Button, ButtonLink, Card, GoBackLink, SelectField, TextAreaField, TextField } from '~/components/UI';
 import { db, slugify } from '~/utils/db.server';
 
-import type { Category } from "@prisma/client";
+import type { Category } from "~/types";
 
 export const validator = withYup(
   Yup.object().shape({
@@ -26,7 +26,7 @@ export const action: ActionFunction = async ({ request }) => {
   if (result.error) return validationError(result.error);
   const { title, categoryId, description } = result.data;
   const slug = slugify(title);
-  const newFeedback = await db.feedback.create({
+  await db.feedback.create({
     data: {
       title,
       slug,

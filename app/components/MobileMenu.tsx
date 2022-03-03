@@ -3,14 +3,14 @@ import { DialogContent, DialogOverlay } from '@reach/dialog';
 import RoadmapMenu from './RoadmapMenu';
 import TagsCloud from './TagsCloud';
 
-import type { Category } from "@prisma/client";
-import type { FeedbackStatusAggregate } from "../types/models";
+import type { Category } from "~/types";
+import type { FeedbackStatuses } from "~/utils/db.server";
 
 export type MobileMenuProps = {
   isOpen: boolean;
   onDismiss: () => void;
   categories: Category[];
-  feedbackStatuses: FeedbackStatusAggregate[];
+  feedbackStatuses: FeedbackStatuses;
 };
 
 const MobileMenu: React.FC<MobileMenuProps> = ({

@@ -4,7 +4,7 @@ import { useRouteData } from 'remix-utils';
 import Card from './UI/Card';
 import Tag from './UI/Tag';
 
-import type { Category } from "@prisma/client";
+import type { Category } from "~/types";
 export type TagsCloudProps = {
   tags: Category[];
   className?: string;

@@ -7,7 +7,7 @@ import ApplicationLogo from '~/components/UI/ApplicationLogo';
 import { db, getFeedbackStatuses } from '~/utils/db.server';
 
 import type { LoaderFunction } from "remix";
-import type { Category, Feedback, User } from "@prisma/client";
+import type { Category, Feedback, User } from "~/types";
 import type { FeedbackStatuses } from "~/utils/db.server";
 
 export type LoaderData = {

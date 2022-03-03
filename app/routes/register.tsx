@@ -1,6 +1,6 @@
 import { withYup } from '@remix-validated-form/with-yup';
 import bcrypt from 'bcryptjs';
-import { json, Link, useLoaderData } from 'remix';
+import { json, Link } from 'remix';
 import { ValidatedForm, validationError } from 'remix-validated-form';
 import * as Yup from 'yup';
 import { auth, sessionStorage } from '~/auth.server';
@@ -87,8 +87,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 const Register = () => {
-  const { error } = useLoaderData<LoaderData>();
-
   return (
     <div className="flex flex-col min-h-screen px-6 md:px-0 py-7 container mx-auto max-w-xl justify-center gap-10">
       <header>

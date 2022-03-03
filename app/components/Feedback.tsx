@@ -5,7 +5,7 @@ import Card from './UI/Card';
 import Tag from './UI/Tag';
 import Upvote from './UI/Upvote';
 
-import type { User } from "@prisma/client";
+import type { User } from "~/types";
 import type { FeedbackWithCounts } from "~/utils/db.server";
 
 export type FeedbackProps = {
@@ -19,11 +19,12 @@ const Feedback: React.FC<FeedbackProps> = ({
   withHeading = false,
   user,
 }: FeedbackProps) => {
-  // const upvoted = useUpvotedState(feedback);
   const upvoted =
     user !== undefined &&
     user !== null &&
-    feedback.upvotes.findIndex((user) => user.id === user.id) !== -1;
+    feedback.upvotes.findIndex(
+      (feedbackUser) => feedbackUser.id === user.id
+    ) !== -1;
   const commentsCount = feedback._count.comments;
 
   return (
