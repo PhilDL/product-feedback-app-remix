@@ -3,8 +3,7 @@ import { DialogContent, DialogOverlay } from '@reach/dialog';
 import RoadmapMenu from './RoadmapMenu';
 import TagsCloud from './TagsCloud';
 
-import type { Category } from "~/types";
-import type { FeedbackStatuses } from "~/utils/db.server";
+import type { Category, FeedbackStatuses } from "~/types";
 
 export type MobileMenuProps = {
   isOpen: boolean;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CommentReply from '~/components/CommentReply';
 import UnstyledButton from '~/components/UI/UnstyledButton';
 
-import type { CommentWithReplies } from "~/utils/db.server";
+import type { CommentWithReplies } from "~/types";
 
 export type CommentProps = {
   comment: CommentWithReplies;

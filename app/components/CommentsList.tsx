@@ -3,7 +3,7 @@ import React from 'react';
 
 import Comment from './Comment';
 
-import type { FeedbackComments, CommentWithReplies } from "~/utils/db.server";
+import type { FeedbackComments, CommentWithReplies } from "~/types";
 export type CommentsListProps = {
   comments?: FeedbackComments;
   totalComments: number;

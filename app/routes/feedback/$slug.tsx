@@ -1,14 +1,14 @@
-import { json, Outlet, useLoaderData } from 'remix';
+import { json, Outlet, redirect, useLoaderData } from 'remix';
 import invariant from 'tiny-invariant';
 import { auth } from '~/auth.server';
 import { AddCommentForm, CommentsList, Feedback } from '~/components';
 import { ButtonLink, GoBackLink } from '~/components/UI';
-import { db, FeedbackComments, getAllFeedbackComments, getFeedbackBySlug } from '~/utils/db.server';
+import { createComment, getAllCommentsForFeedbackId } from '~/models/comment';
+import { addUpvoteToFeedback, deleteFeedback, getFeedbackBySlug, removeUpvoteFromFeedback } from '~/models/feedback';
 import { parseStringFormData } from '~/utils/http';
 
 import type { LoaderFunction, ActionFunction } from "remix";
-import type { User } from "~/types";
-import type { FeedbackWithCounts } from "~/utils/db.server";
+import type { User, FeedbackComments, FeedbackWithCounts } from "~/types";
 
 export const action: ActionFunction = async ({ request, params }) => {
   const user = await auth.isAuthenticated(request, {
@@ -27,31 +27,17 @@ export const action: ActionFunction = async ({ request, params }) => {
       invariant(data.content, "content is required");
       let newComment = null;
       if (parentId) {
-        newComment = await db.comment.create({
-          data: {
-            author: {
-              connect: { id: user.id },
-            },
-            parent: {
-              connect: { id: parentId },
-            },
-            feedback: {
-              connect: { id: feedback.id },
-            },
-            content: data.content,
-          },
+        newComment = await createComment({
+          userId: user.id,
+          feedbackId: feedback.id,
+          content: data.content,
+          parentId: parentId,
         });
       } else {
-        newComment = await db.comment.create({
-          data: {
-            author: {
-              connect: { id: user.id },
-            },
-            content: data.content,
-            feedback: {
-              connect: { id: feedback.id },
-            },
-          },
+        newComment = await createComment({
+          userId: user.id,
+          feedbackId: feedback.id,
+          content: data.content,
         });
       }
       return newComment;
@@ -59,27 +45,17 @@ export const action: ActionFunction = async ({ request, params }) => {
     case "UPVOTE": {
       const shouldUpvote = data.upvote === "true";
       if (shouldUpvote) {
-        await db.feedback.update({
-          where: { id: feedback.id },
-          data: {
-            upvotes: {
-              connect: { id: user.id },
-            },
-          },
-        });
+        await addUpvoteToFeedback(feedback.id, user.id);
       } else {
-        await db.feedback.update({
-          where: { id: feedback.id },
-          data: {
-            upvotes: {
-              disconnect: { id: user.id },
-            },
-          },
-        });
+        await removeUpvoteFromFeedback(feedback.id, user.id);
       }
       return json({
         message: "success",
       });
+    }
+    case "DELETE": {
+      await deleteFeedback(feedback.id);
+      return redirect("/");
     }
   }
 };
@@ -94,7 +70,7 @@ export let loader: LoaderFunction = async ({ request, params }) => {
   invariant(params.slug);
   const feedback = await getFeedbackBySlug(params.slug);
   invariant(feedback, "feedback not found");
-  const comments = await getAllFeedbackComments(feedback.id);
+  const comments = await getAllCommentsForFeedbackId(feedback.id);
 
   const data: LoaderData = {
     feedback: (await getFeedbackBySlug(params.slug)) as FeedbackWithCounts,

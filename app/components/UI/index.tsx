@@ -12,3 +12,4 @@ export { default as UnstyledButton } from "./UnstyledButton";
 export { default as Upvote } from "./Upvote";
 export { default as Alert } from "./Alert";
 export { default as AsyncValidatedTextField } from "./AsyncValidatedTextField";
+export { default as AlertDialogConfirm } from "./AlertDialogConfirm";

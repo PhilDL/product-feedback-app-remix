@@ -4,11 +4,11 @@ import MobileMenu from '~/components/MobileMenu';
 import RoadmapMenu from '~/components/RoadmapMenu';
 import TagsCloud from '~/components/TagsCloud';
 import ApplicationLogo from '~/components/UI/ApplicationLogo';
-import { db, getFeedbackStatuses } from '~/utils/db.server';
+import { getAllCategories } from '~/models/category';
+import { getFeedbackStatuses } from '~/models/feedback';
 
 import type { LoaderFunction } from "remix";
-import type { Category, Feedback, User } from "~/types";
-import type { FeedbackStatuses } from "~/utils/db.server";
+import type { Category, Feedback, User, FeedbackStatuses } from "~/types";
 
 export type LoaderData = {
   categories: Array<Category>;
@@ -17,7 +17,7 @@ export type LoaderData = {
 
 export let loader: LoaderFunction = async ({ request }) => {
   const data: LoaderData = {
-    categories: await db.category.findMany(),
+    categories: await getAllCategories(),
     feedbackStatuses: await getFeedbackStatuses(),
   };
   return data;

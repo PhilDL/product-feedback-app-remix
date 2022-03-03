@@ -4,8 +4,7 @@ import { Link } from 'remix';
 import Tag from './UI/Tag';
 import Upvote from './UI/Upvote';
 
-import type { FeedbackWithCounts } from "~/utils/db.server";
-import type { User } from "~/types";
+import type { User, FeedbackWithCounts } from "~/types";
 
 type RoadmapFeedbackProps = {
   feedback: FeedbackWithCounts;

@@ -5,6 +5,7 @@
   "license": "",
   "dependencies": {
     "@prisma/client": "^3.10.0",
+    "@reach/alert-dialog": "^0.16.2",
     "@reach/dialog": "^0.16.2",
     "@reach/listbox": "^0.16.2",
     "@remix-run/react": "^1.2.3",

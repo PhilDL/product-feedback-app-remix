@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import { createCookieSessionStorage } from 'remix';
 import { Authenticator, AuthorizationError } from 'remix-auth';
 import { FormStrategy } from 'remix-auth-form';
-import { db } from '~/utils/db.server';
+import { db } from '~/models/db.server';
 
 import type { User } from "~/types";
 

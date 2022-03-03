@@ -2,11 +2,10 @@ import React from 'react';
 import { useLoaderData, useOutletContext } from 'remix';
 import { RoadmapFeedbacksList } from '~/components';
 import { ButtonLink, GoBackLink } from '~/components/UI';
-import { getFeedbacksWithCountsAndStatus } from '~/utils/db.server';
+import { getFeedbacksWithCountsAndStatus } from '~/models/feedback';
 
 import type { LoaderFunction } from "remix";
-import type { User } from "~/types";
-import type { FeedbackStatusAggregate } from "~/utils/db.server";
+import type { User, FeedbackStatusAggregate } from "~/types";
 
 export type LoaderData = {
   feedbackStatuses: FeedbackStatusAggregate[];

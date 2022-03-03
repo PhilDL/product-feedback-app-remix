@@ -1,14 +1,25 @@
 import { withYup } from '@remix-validated-form/with-yup';
-import { ActionFunction, LoaderFunction, redirect, useLoaderData } from 'remix';
+import { useState } from 'react';
+import { ActionFunction, Form, LoaderFunction, redirect, useLoaderData } from 'remix';
 import { ValidatedForm, validationError } from 'remix-validated-form';
 import invariant from 'tiny-invariant';
 import * as Yup from 'yup';
 import { auth } from '~/auth.server';
-import { Button, ButtonLink, Card, GoBackLink, SelectField, TextAreaField, TextField } from '~/components/UI';
-import { db, getFeedbackBySlug, slugify } from '~/utils/db.server';
+import {
+  AlertDialogConfirm,
+  Button,
+  ButtonLink,
+  Card,
+  GoBackLink,
+  SelectField,
+  TextAreaField,
+  TextField,
+} from '~/components/UI';
+import { getAllCategories } from '~/models/category';
+import { getFeedbackBySlug, updateFeedbackWithSlug } from '~/models/feedback';
+import { slugify } from '~/utils';
 
-import type { Category, User } from "~/types";
-import type { FeedbackWithCounts } from "~/utils/db.server";
+import type { Category, User, FeedbackWithCounts } from "~/types";
 
 export type FeedbackStatus = {
   id: string;
@@ -44,17 +55,12 @@ export const action: ActionFunction = async ({ request, params }) => {
   if (result.error) return validationError(result.error);
   const { title, categoryId, description, status } = result.data;
   const slug = slugify(title);
-  await db.feedback.update({
-    where: {
-      slug: params.slug,
-    },
-    data: {
-      title,
-      slug,
-      categoryId,
-      description,
-      status,
-    },
+  await updateFeedbackWithSlug(params.slug, {
+    title,
+    slug,
+    categoryId,
+    description,
+    status,
   });
   return redirect(`/feedback/${slug}`);
 };
@@ -75,7 +81,7 @@ export let loader: LoaderFunction = async ({ request, params }) => {
   ];
   invariant(feedback, "feedback not found");
   const data: LoaderData = {
-    categories: await db.category.findMany(),
+    categories: await getAllCategories(),
     feedback: feedback,
     user: user,
     statuses: statuses,
@@ -85,6 +91,13 @@ export let loader: LoaderFunction = async ({ request, params }) => {
 
 const NewFeedback = () => {
   const { categories, statuses, feedback } = useLoaderData<LoaderData>();
+  const [showConfirmDeleteDialog, setShowConfirmDeleteDialog] =
+    useState<boolean>(false);
+
+  const onClickDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setShowConfirmDeleteDialog(true);
+  };
 
   return (
     <div className="flex min-h-screen py-7 px-6 md:px-0 container mx-auto max-w-xl">
@@ -175,11 +188,26 @@ const NewFeedback = () => {
                 </ButtonLink>
               </div>
 
-              <Button name="delete" role="danger">
+              <Button name="delete" role="danger" onClick={onClickDelete}>
                 Delete
               </Button>
             </div>
           </ValidatedForm>
+          {showConfirmDeleteDialog && (
+            <AlertDialogConfirm
+              title="Delete Feedback"
+              description="Are you sure you want to delete this feedback?"
+              onDismiss={() => setShowConfirmDeleteDialog(false)}
+              cancelText="I changed my mind"
+            >
+              <Form method="post" action={`/feedback/${feedback.slug}`}>
+                <input type="hidden" name="_action" value={"DELETE"} />
+                <Button type="submit" role="danger">
+                  Delete
+                </Button>
+              </Form>
+            </AlertDialogConfirm>
+          )}
         </Card>
       </main>
     </div>

@@ -2,11 +2,10 @@ import { useLoaderData, useOutletContext } from 'remix';
 import invariant from 'tiny-invariant';
 import FeedbacksList from '~/components/FeedbacksList';
 import FeedbacksListHeader from '~/components/FeedbacksListHeader';
-import { getFeedbacksWithCounts } from '~/utils/db.server';
+import { getFeedbacksWithCounts } from '~/models/feedback';
 
 import type { LoaderFunction } from "remix";
-import type { User } from "~/types";
-import type { FeedbacksWithCounts } from "~/utils/db.server";
+import type { User, FeedbacksWithCounts } from "~/types";
 
 export type LoaderData = {
   feedbacks: FeedbacksWithCounts;

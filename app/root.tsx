@@ -1,20 +1,21 @@
 import {
+  ActionFunction,
+  json,
   Links,
   LiveReload,
+  LoaderFunction,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  LoaderFunction,
-  json,
   useLoaderData,
-  ActionFunction,
-} from "remix";
-import type { MetaFunction } from "remix";
-import styles from "./tailwind.css";
-import { auth } from "./auth.server";
-import Footer from "./components/Footer";
+} from 'remix';
 
+import { auth } from './auth.server';
+import Footer from './components/Footer';
+import styles from './tailwind.css';
+
+import type { MetaFunction } from "remix";
 export function links() {
   return [
     { rel: "stylesheet", href: styles },
@@ -54,7 +55,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body id="root">
         <Outlet context={{ user }} />
         <Footer user={user} />
         <ScrollRestoration />

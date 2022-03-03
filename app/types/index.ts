@@ -1,10 +1,6 @@
 import { Prisma } from '@prisma/client';
-import {
-  getAllFeedbackComments,
-  getFeedbackBySlug,
-  getFeedbackStatuses,
-  getFeedbacksWithCounts,
-} from '~/utils/models.server';
+import { getAllCommentsForFeedbackId } from '~/models/comment';
+import { getFeedbackBySlug, getFeedbackStatuses, getFeedbacksWithCounts } from '~/models/feedback';
 
 import type {
   Category as PrismaCategory,
@@ -27,7 +23,7 @@ export type FeedbackWithCountsOrNull = ThenArg<
 >;
 
 export type FeedbackComments = ThenArg<
-  ReturnType<typeof getAllFeedbackComments>
+  ReturnType<typeof getAllCommentsForFeedbackId>
 >;
 
 const commentWithAuthorAndParent = Prisma.validator<Prisma.CommentArgs>()({

@@ -36,3 +36,12 @@ html {
   --reach-dialog: 1;
   --reach-listbox: 1;
 }
+
+#root {
+  /*
+    Create a stacking context, without a z-index.
+    This ensures that all portal content (modals and tooltips) will
+    float above the app.
+  */
+  isolation: isolate;
+}

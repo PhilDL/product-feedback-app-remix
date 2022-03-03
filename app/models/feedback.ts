@@ -79,8 +79,8 @@ export const getFeedbacksWithCountsAndStatus = async () => {
   return feedbacks;
 };
 
-export const getFeedbackBySlug = (slug: string) => {
-  const feedback = db.feedback.findUnique({
+export const getFeedbackBySlug = async (slug: string) => {
+  return db.feedback.findUnique({
     where: {
       slug: slug,
     },
@@ -95,29 +95,6 @@ export const getFeedbackBySlug = (slug: string) => {
       },
     },
   });
-  return feedback;
-};
-
-export const getAllFeedbackComments = async (feedbackId: string) => {
-  const comments = db.comment.findMany({
-    where: {
-      feedback: {
-        id: feedbackId,
-      },
-    },
-    include: {
-      author: true,
-      parent: {
-        include: {
-          author: true,
-        },
-      },
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-  return comments;
 };
 
 export const getFeedbackStatuses = async () => {
@@ -147,19 +124,105 @@ export const getFeedbackStatuses = async () => {
   return feedbackStatuses;
 };
 
-/**
- * Slugify a string
- * @param args Input string to slugify
- * @returns Slugified string, correct for URL consumption
- */
-export const slugify = (...args: (string | number)[]): string => {
-  const value = args.join(" ");
+export const createFeedback = async ({
+  title,
+  slug,
+  categoryId,
+  description,
+  userId,
+}: {
+  title: string;
+  slug: string;
+  categoryId: string;
+  description: string;
+  userId: string;
+}) => {
+  return db.feedback.create({
+    data: {
+      title,
+      slug,
+      categoryId,
+      description,
+      userId: userId,
+    },
+  });
+};
 
-  return value
-    .normalize("NFD") // split an accented letter in the base letter and the acent
-    .replace(/[\u0300-\u036f]/g, "") // remove all previously split accents
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9 ]/g, "") // remove all chars not letters, numbers and spaces (to be replaced)
-    .replace(/\s+/g, "-"); // separator
+export const updateFeedbackWithSlug = (
+  slug: string,
+  {
+    title,
+    slug: newSlug,
+    categoryId,
+    description,
+    status,
+  }: {
+    title?: string;
+    slug?: string;
+    categoryId?: string;
+    description?: string;
+    status?: string;
+  }
+) => {
+  return db.feedback.update({
+    where: {
+      slug: slug,
+    },
+    data: {
+      title,
+      slug: newSlug,
+      categoryId,
+      description,
+      status,
+    },
+  });
+};
+
+export const addUpvoteToFeedback = async (
+  feedbackId: string,
+  userId: string
+) => {
+  return db.feedback.update({
+    where: { id: feedbackId },
+    data: {
+      upvotes: {
+        connect: { id: userId },
+      },
+    },
+  });
+};
+
+export const removeUpvoteFromFeedback = async (
+  feedbackId: string,
+  userId: string
+) => {
+  return db.feedback.update({
+    where: { id: feedbackId },
+    data: {
+      upvotes: {
+        disconnect: { id: userId },
+      },
+    },
+  });
+};
+
+export const deleteFeedback = async (feedbackId: string) => {
+  await db.feedback.update({
+    data: {
+      upvotes: {
+        deleteMany: {},
+      },
+      comments: {
+        deleteMany: {},
+      },
+    },
+    where: {
+      id: feedbackId,
+    },
+  });
+  return db.feedback.delete({
+    where: {
+      id: feedbackId,
+    },
+  });
 };

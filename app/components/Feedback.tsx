@@ -5,8 +5,7 @@ import Card from './UI/Card';
 import Tag from './UI/Tag';
 import Upvote from './UI/Upvote';
 
-import type { User } from "~/types";
-import type { FeedbackWithCounts } from "~/utils/db.server";
+import type { User, FeedbackWithCounts } from "~/types";
 
 export type FeedbackProps = {
   feedback: FeedbackWithCounts;

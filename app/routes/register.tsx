@@ -5,7 +5,7 @@ import { ValidatedForm, validationError } from 'remix-validated-form';
 import * as Yup from 'yup';
 import { auth, sessionStorage } from '~/auth.server';
 import { AsyncValidatedTextField, Button, Card, GoBackLink, TextField } from '~/components/UI';
-import { db } from '~/utils/db.server';
+import { createUser, findUserByEmail, findUserByUsername } from '~/models/user';
 
 import type { ActionFunction, LoaderFunction } from "remix";
 
@@ -38,9 +38,7 @@ export const action: ActionFunction = async ({ request }) => {
   const result = await validator.validate(form);
   if (result.error) return validationError(result.error);
   let { username, email, password, fullName, avatarUrl } = result.data;
-  const usernameExists = await db.user.findUnique({
-    where: { username },
-  });
+  const usernameExists = await findUserByUsername(username);
   if (usernameExists) {
     return validationError(
       {
@@ -51,9 +49,7 @@ export const action: ActionFunction = async ({ request }) => {
       result.data
     );
   }
-  const emailExists = await db.user.findUnique({
-    where: { email },
-  });
+  const emailExists = await findUserByEmail(email);
   if (emailExists) {
     return validationError(
       {
@@ -68,9 +64,7 @@ export const action: ActionFunction = async ({ request }) => {
     avatarUrl = `https://avatars.dicebear.com/api/bottts/${username}.svg`;
   }
   const passwordHash = await bcrypt.hash(password, 10);
-  await db.user.create({
-    data: { email, avatarUrl, fullName, username, passwordHash },
-  });
+  await createUser({ email, avatarUrl, fullName, username, passwordHash });
   await auth.authenticate("form", request, {
     successRedirect: "/",
     failureRedirect: "/login",

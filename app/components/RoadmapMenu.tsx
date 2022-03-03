@@ -3,7 +3,7 @@ import { Link } from 'remix';
 
 import Card from './UI/Card';
 
-import type { FeedbackStatuses } from "~/utils/db.server";
+import type { FeedbackStatuses } from "~/types";
 
 export type RoadmapMenuProps = {
   feedbackStatuses: FeedbackStatuses;

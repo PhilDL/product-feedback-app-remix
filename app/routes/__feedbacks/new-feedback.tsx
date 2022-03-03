@@ -4,7 +4,9 @@ import { ValidatedForm, validationError } from 'remix-validated-form';
 import * as Yup from 'yup';
 import { auth } from '~/auth.server';
 import { Button, ButtonLink, Card, GoBackLink, SelectField, TextAreaField, TextField } from '~/components/UI';
-import { db, slugify } from '~/utils/db.server';
+import { getAllCategories } from '~/models/category';
+import { createFeedback } from '~/models/feedback';
+import { slugify } from '~/utils';
 
 import type { Category } from "~/types";
 
@@ -26,14 +28,12 @@ export const action: ActionFunction = async ({ request }) => {
   if (result.error) return validationError(result.error);
   const { title, categoryId, description } = result.data;
   const slug = slugify(title);
-  await db.feedback.create({
-    data: {
-      title,
-      slug,
-      categoryId,
-      description,
-      userId: user.id,
-    },
+  await createFeedback({
+    title,
+    slug,
+    categoryId,
+    description,
+    userId: user.id,
   });
   return redirect("/");
 };
@@ -44,7 +44,7 @@ export type LoaderData = {
 
 export let loader: LoaderFunction = async ({ request }) => {
   const data: LoaderData = {
-    categories: await db.category.findMany(),
+    categories: await getAllCategories(),
   };
   return data;
 };

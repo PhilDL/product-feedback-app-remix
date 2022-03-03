@@ -2,8 +2,7 @@ import React from 'react';
 
 import RoadmapFeedback from './RoadmapFeedback';
 
-import type { FeedbacksWithCounts } from "~/utils/db.server";
-import type { User } from "~/types";
+import type { User, FeedbacksWithCounts } from "~/types";
 
 type RoadmapFeedbacksListProps = {
   feedbacks: FeedbacksWithCounts;

@@ -3,7 +3,7 @@ import { Form, useTransition } from 'remix';
 
 import Button from './UI/Button';
 
-import type { CommentWithReplies } from "~/utils/db.server";
+import type { CommentWithReplies } from "~/types";
 
 type Props = {
   comment: CommentWithReplies;
