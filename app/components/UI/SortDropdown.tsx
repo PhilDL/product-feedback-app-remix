@@ -1,12 +1,6 @@
-import React, { useState } from "react";
-import {
-  ListboxInput,
-  ListboxButton,
-  ListboxPopover,
-  ListboxList,
-  ListboxOption,
-} from "@reach/listbox";
-import { Form, useFetcher, useSearchParams, useSubmit } from "remix";
+import { ListboxButton, ListboxInput, ListboxList, ListboxOption, ListboxPopover } from '@reach/listbox';
+import React, { useState } from 'react';
+import { Form, useSearchParams, useSubmit } from 'remix';
 
 export type SortDropdownProps = {
   options: { [key: string]: string };

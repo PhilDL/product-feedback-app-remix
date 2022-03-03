@@ -1,18 +1,13 @@
+import { withYup } from '@remix-validated-form/with-yup';
+import bcrypt from 'bcryptjs';
+import { json, Link, useLoaderData } from 'remix';
+import { ValidatedForm, validationError } from 'remix-validated-form';
+import * as Yup from 'yup';
+import { auth, sessionStorage } from '~/auth.server';
+import { AsyncValidatedTextField, Button, Card, GoBackLink, TextField } from '~/components/UI';
+import { db } from '~/utils/db.server';
+
 import type { ActionFunction, LoaderFunction } from "remix";
-import {
-  Card,
-  GoBackLink,
-  TextField,
-  Button,
-  AsyncValidatedTextField,
-} from "../components/UI";
-import { Link, json, useLoaderData } from "remix";
-import { auth, sessionStorage } from "~/auth.server";
-import { ValidatedForm, validationError } from "remix-validated-form";
-import { withYup } from "@remix-validated-form/with-yup";
-import * as Yup from "yup";
-import { db } from "~/utils/db.server";
-import bcrypt from "bcryptjs";
 
 export const validator = withYup(
   Yup.object().shape({

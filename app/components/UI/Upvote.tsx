@@ -1,5 +1,5 @@
-import React from "react";
-import { useFetcher } from "remix";
+import React from 'react';
+import { useFetcher } from 'remix';
 
 export type UpvoteProps = {
   active: boolean;

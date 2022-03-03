@@ -1,9 +1,10 @@
-import { createCookieSessionStorage } from "remix";
-import { Authenticator, AuthorizationError } from "remix-auth";
-import { FormStrategy } from "remix-auth-form";
-import { db } from "~/utils/db.server";
+import bcrypt from 'bcryptjs';
+import { createCookieSessionStorage } from 'remix';
+import { Authenticator, AuthorizationError } from 'remix-auth';
+import { FormStrategy } from 'remix-auth-form';
+import { db } from '~/utils/db.server';
+
 import type { User } from "@prisma/client";
-import bcrypt from "bcryptjs";
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {

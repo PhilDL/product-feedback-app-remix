@@ -1,6 +1,8 @@
-import React from "react";
-import Card from "./UI/Card";
-import { Link } from "remix";
+import React from 'react';
+import { Link } from 'remix';
+
+import Card from './UI/Card';
+
 import type { FeedbackStatusAggregate } from "../types/models";
 
 export type RoadmapMenuProps = {

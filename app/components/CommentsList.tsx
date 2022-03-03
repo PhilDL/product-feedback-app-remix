@@ -1,8 +1,9 @@
-import React from "react";
-import Comment from "./Comment";
-import type { FeedbackComments, CommentWithReplies } from "~/utils/db.server";
-import { arrayToTree } from "performant-array-to-tree";
+import { arrayToTree } from 'performant-array-to-tree';
+import React from 'react';
 
+import Comment from './Comment';
+
+import type { FeedbackComments, CommentWithReplies } from "~/utils/db.server";
 export type CommentsListProps = {
   comments?: FeedbackComments;
   totalComments: number;

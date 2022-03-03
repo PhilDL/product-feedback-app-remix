@@ -1,31 +1,14 @@
-import { ActionFunction, LoaderFunction, redirect } from "remix";
-import {
-  Card,
-  GoBackLink,
-  TextField,
-  Button,
-  ButtonLink,
-  SelectField,
-  TextAreaField,
-} from "~/components/UI";
-import { useLoaderData } from "remix";
-import { auth } from "~/auth.server";
-import { ValidatedForm, validationError } from "remix-validated-form";
-import { withYup } from "@remix-validated-form/with-yup";
-import * as Yup from "yup";
-import { db, slugify, getFeedbackBySlug } from "~/utils/db.server";
+import { withYup } from '@remix-validated-form/with-yup';
+import { ActionFunction, LoaderFunction, redirect, useLoaderData } from 'remix';
+import { ValidatedForm, validationError } from 'remix-validated-form';
+import invariant from 'tiny-invariant';
+import * as Yup from 'yup';
+import { auth } from '~/auth.server';
+import { Button, ButtonLink, Card, GoBackLink, SelectField, TextAreaField, TextField } from '~/components/UI';
+import { db, getFeedbackBySlug, slugify } from '~/utils/db.server';
+
 import type { Category, User } from "@prisma/client";
 import type { FeedbackWithCounts } from "~/utils/db.server";
-import invariant from "tiny-invariant";
-
-export const validator = withYup(
-  Yup.object().shape({
-    title: Yup.string().required("Required"),
-    description: Yup.string()
-      .required("Required")
-      .min(3, "Must be at least 60 characters"),
-  })
-);
 
 export type FeedbackStatus = {
   id: string;
@@ -38,6 +21,15 @@ export type LoaderData = {
   feedback: FeedbackWithCounts;
   statuses: FeedbackStatus[];
 };
+
+export const validator = withYup(
+  Yup.object().shape({
+    title: Yup.string().required("Required"),
+    description: Yup.string()
+      .required("Required")
+      .min(3, "Must be at least 60 characters"),
+  })
+);
 
 export const action: ActionFunction = async ({ request, params }) => {
   const user = await auth.isAuthenticated(request, {

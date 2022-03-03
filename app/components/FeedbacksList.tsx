@@ -1,6 +1,8 @@
-import React from "react";
-import Feedback from "./Feedback";
-import NoFeedback from "./NoFeedback";
+import React from 'react';
+
+import Feedback from './Feedback';
+import NoFeedback from './NoFeedback';
+
 import type { FeedbacksWithCounts } from "~/utils/db.server";
 import type { User } from "@prisma/client";
 

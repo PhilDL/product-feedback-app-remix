@@ -1,20 +1,12 @@
-import { ActionFunction, LoaderFunction, redirect } from "remix";
-import {
-  Card,
-  GoBackLink,
-  TextField,
-  Button,
-  ButtonLink,
-  SelectField,
-  TextAreaField,
-} from "~/components/UI";
-import { Link, json, useLoaderData } from "remix";
-import { auth, sessionStorage } from "~/auth.server";
-import { ValidatedForm, validationError } from "remix-validated-form";
-import { withYup } from "@remix-validated-form/with-yup";
-import * as Yup from "yup";
-import { db, slugify } from "~/utils/db.server";
-import type { Category, Feedback, User } from "@prisma/client";
+import { withYup } from '@remix-validated-form/with-yup';
+import { ActionFunction, LoaderFunction, redirect, useLoaderData } from 'remix';
+import { ValidatedForm, validationError } from 'remix-validated-form';
+import * as Yup from 'yup';
+import { auth } from '~/auth.server';
+import { Button, ButtonLink, Card, GoBackLink, SelectField, TextAreaField, TextField } from '~/components/UI';
+import { db, slugify } from '~/utils/db.server';
+
+import type { Category } from "@prisma/client";
 
 export const validator = withYup(
   Yup.object().shape({

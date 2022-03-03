@@ -1,10 +1,15 @@
+import { withYup } from '@remix-validated-form/with-yup';
+import { json, Link, useLoaderData } from 'remix';
+import { ValidatedForm, validationError } from 'remix-validated-form';
+import * as Yup from 'yup';
+import { auth, sessionStorage } from '~/auth.server';
+import { Button, Card, GoBackLink, TextField } from '~/components/UI';
+
 import type { ActionFunction, LoaderFunction } from "remix";
-import { Card, GoBackLink, TextField, Button } from "../components/UI";
-import { Link, json, useLoaderData } from "remix";
-import { auth, sessionStorage } from "~/auth.server";
-import { ValidatedForm, validationError } from "remix-validated-form";
-import { withYup } from "@remix-validated-form/with-yup";
-import * as Yup from "yup";
+
+type LoaderData = {
+  error: { message: string } | null;
+};
 
 export const validator = withYup(
   Yup.object().shape({
@@ -12,10 +17,6 @@ export const validator = withYup(
     password: Yup.string().required("Required"),
   })
 );
-
-type LoaderData = {
-  error: { message: string } | null;
-};
 
 export const action: ActionFunction = async ({ request }) => {
   const clonedRequest = request.clone();

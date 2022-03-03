@@ -1,5 +1,7 @@
-import React from "react";
-import RoadmapFeedback from "./RoadmapFeedback";
+import React from 'react';
+
+import RoadmapFeedback from './RoadmapFeedback';
+
 import type { FeedbacksWithCounts } from "~/utils/db.server";
 import type { User } from "@prisma/client";
 

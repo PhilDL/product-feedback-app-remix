@@ -1,7 +1,9 @@
-import React from "react";
-import { Link } from "remix";
-import Tag from "./UI/Tag";
-import Upvote from "./UI/Upvote";
+import React from 'react';
+import { Link } from 'remix';
+
+import Tag from './UI/Tag';
+import Upvote from './UI/Upvote';
+
 import type { FeedbackWithCounts } from "~/utils/db.server";
 import type { User } from "@prisma/client";
 

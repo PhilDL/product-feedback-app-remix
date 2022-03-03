@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useField } from "remix-validated-form";
-import {
-  ListboxInput,
-  ListboxButton,
-  ListboxPopover,
-  ListboxList,
-  ListboxOption,
-} from "@reach/listbox";
+import { ListboxButton, ListboxInput, ListboxList, ListboxOption, ListboxPopover } from '@reach/listbox';
+import React, { useState } from 'react';
+import { useField } from 'remix-validated-form';
 
 export interface Option {
   id: number | string;

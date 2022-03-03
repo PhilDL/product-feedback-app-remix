@@ -1,6 +1,8 @@
-import React, { useRef, useEffect } from "react";
-import Button from "./UI/Button";
-import { Form, useTransition } from "remix";
+import React, { useEffect, useRef } from 'react';
+import { Form, useTransition } from 'remix';
+
+import Button from './UI/Button';
+
 import type { CommentWithReplies } from "~/utils/db.server";
 
 type Props = {

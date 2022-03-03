@@ -1,18 +1,14 @@
-import { GoBackLink, ButtonLink } from "~/components/UI";
-import { Feedback, CommentsList, AddCommentForm } from "~/components";
-import {
-  db,
-  getFeedbackBySlug,
-  getAllFeedbackComments,
-  FeedbackComments,
-} from "~/utils/db.server";
-import { useLoaderData, Outlet, json } from "remix";
+import { json, Outlet, useLoaderData } from 'remix';
+import invariant from 'tiny-invariant';
+import { auth } from '~/auth.server';
+import { AddCommentForm, CommentsList, Feedback } from '~/components';
+import { ButtonLink, GoBackLink } from '~/components/UI';
+import { db, FeedbackComments, getAllFeedbackComments, getFeedbackBySlug } from '~/utils/db.server';
+import { parseStringFormData } from '~/utils/http';
+
 import type { LoaderFunction, ActionFunction } from "remix";
 import type { User } from "@prisma/client";
 import type { FeedbackWithCounts } from "~/utils/db.server";
-import { auth } from "~/auth.server";
-import invariant from "tiny-invariant";
-import { parseStringFormData } from "~/utils/http";
 
 type ActionData = {
   formError?: string;

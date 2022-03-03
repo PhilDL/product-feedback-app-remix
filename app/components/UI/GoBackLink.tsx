@@ -1,11 +1,7 @@
-import React from "react";
-export type Ref = HTMLAnchorElement;
-import { Link } from "remix";
+import React from 'react';
+import { Link } from 'remix';
 
-// enum Theme {
-//   Light = "light",
-//   Dark = "dark",
-// }
+export type Ref = HTMLAnchorElement;
 type Props = {
   [x: string]: any;
   theme?: string;

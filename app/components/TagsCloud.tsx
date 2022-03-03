@@ -1,9 +1,10 @@
-import React from "react";
-import Tag from "./UI/Tag";
-import Card from "./UI/Card";
-import type { Category } from "@prisma/client";
-import { useRouteData } from "remix-utils";
+import React from 'react';
+import { useRouteData } from 'remix-utils';
 
+import Card from './UI/Card';
+import Tag from './UI/Tag';
+
+import type { Category } from "@prisma/client";
 export type TagsCloudProps = {
   tags: Category[];
   className?: string;

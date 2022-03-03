@@ -1,5 +1,5 @@
-import React from "react";
-import { useField } from "remix-validated-form";
+import React from 'react';
+import { useField } from 'remix-validated-form';
 
 export interface TextAreaFieldProps {
   label?: string;

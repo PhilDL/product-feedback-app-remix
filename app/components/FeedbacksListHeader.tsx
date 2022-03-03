@@ -1,8 +1,8 @@
-import React from "react";
-import ButtonLink from "./UI/ButtonLink";
-import { Form, useFetcher, useSearchParams, useSubmit } from "remix";
+import React from 'react';
 
-import SortDropdown from "./UI/SortDropdown";
+import ButtonLink from './UI/ButtonLink';
+import SortDropdown from './UI/SortDropdown';
+
 export type FeedbacksListHeaderProps = {
   feedbackCount: number;
 };

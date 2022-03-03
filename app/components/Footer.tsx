@@ -1,7 +1,6 @@
-import React from "react";
-import { Link, Form, ActionFunction } from "remix";
-import { User } from "@prisma/client";
-import { auth } from "~/auth.server";
+import { User } from '@prisma/client';
+import React from 'react';
+import { Form, Link } from 'remix';
 
 export interface Props {
   user: User;

@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "remix";
+import React from 'react';
+import { Link } from 'remix';
 
 export type TagProps = {
   selected?: boolean;

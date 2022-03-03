@@ -1,7 +1,7 @@
-import type { LoaderFunction } from "remix";
-import { db } from "~/utils/db.server";
-import { json } from "remix";
+import { json } from 'remix';
+import { db } from '~/utils/db.server';
 
+import type { LoaderFunction } from "remix";
 type LoaderData = {
   valid?: boolean;
 };

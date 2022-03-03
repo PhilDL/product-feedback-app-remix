@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import UnstyledButton from "./UI/UnstyledButton";
-import CommentReply from "./CommentReply";
+import React, { useState } from 'react';
+import CommentReply from '~/components/CommentReply';
+import UnstyledButton from '~/components/UI/UnstyledButton';
+
 import type { CommentWithReplies } from "~/utils/db.server";
 
 export type CommentProps = {

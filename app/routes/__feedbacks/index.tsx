@@ -1,42 +1,13 @@
-import { useState, useMemo } from "react";
-import ApplicationLogo from "../../components/UI/ApplicationLogo";
-import FeedbacksListHeader from "../../components/FeedbacksListHeader";
-import FeedbacksList from "../../components/FeedbacksList";
-import RoadmapMenu from "../../components/RoadmapMenu";
-import TagsCloud from "../../components/TagsCloud";
-import MobileMenu from "../../components/MobileMenu";
-import { db, getFeedbacksWithCounts } from "~/utils/db.server";
-import {
-  useLoaderData,
-  useTransition,
-  useActionData,
-  redirect,
-  Form,
-  json,
-  Outlet,
-  Link,
-  useOutletContext,
-} from "remix";
+import { useMemo, useState } from 'react';
+import { json, useLoaderData, useOutletContext } from 'remix';
+import { auth } from '~/auth.server';
+import FeedbacksList from '~/components/FeedbacksList';
+import FeedbacksListHeader from '~/components/FeedbacksListHeader';
+import { db, getFeedbacksWithCounts } from '~/utils/db.server';
+
 import type { LoaderFunction, ActionFunction } from "remix";
-import type { Category, Feedback, User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import type { FeedbacksWithCounts } from "~/utils/db.server";
-import { auth } from "~/auth.server";
-import invariant from "tiny-invariant";
-
-// export type LoaderData = {
-//   categories: Array<Category>;
-//   feedbacks: FeedbacksWithCounts;
-//   user: User | null;
-// };
-
-// export let loader: LoaderFunction = async ({ request }) => {
-//   const data: LoaderData = {
-//     categories: await db.category.findMany(),
-//     feedbacks: await getFeedbacksWithCounts(),
-//     user: await auth.isAuthenticated(request),
-//   };
-//   return data;
-// };
 
 type ActionData = {
   formError?: string;

@@ -1,11 +1,8 @@
-import React, { useState } from "react";
-import Button from "./UI/Button";
-import Card from "./UI/Card";
-import TextAreaField from "./UI/TextAreaField";
-import { Form } from "remix";
-import { ValidatedForm, validationError } from "remix-validated-form";
-import { withYup } from "@remix-validated-form/with-yup";
-import * as Yup from "yup";
+import { withYup } from '@remix-validated-form/with-yup';
+import React, { useState } from 'react';
+import { ValidatedForm } from 'remix-validated-form';
+import * as Yup from 'yup';
+import { Button, Card, TextAreaField } from '~/components/UI';
 
 export type AddCommentFormProps = {
   feedbackId: string | number;

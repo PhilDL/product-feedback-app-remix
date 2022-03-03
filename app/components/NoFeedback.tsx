@@ -1,4 +1,5 @@
-import Button from "./UI/Button";
+import Button from './UI/Button';
+
 const NoFeedback = () => {
   return (
     <div className="flex flex-col items-center gap-12 py-28 w-full h-full justify-center rounded bg-white">

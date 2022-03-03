@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import Alert from "./Alert";
-import { useField } from "remix-validated-form";
-import { useFetcher } from "remix";
+import React, { useState } from 'react';
+import { useFetcher } from 'remix';
+import { useField } from 'remix-validated-form';
 
 export interface AsyncValidatedTextFieldProps {
   label: string;
@@ -28,10 +27,9 @@ const AsyncValidatedTextField: React.FC<AsyncValidatedTextFieldProps> = ({
   const { error, touched, getInputProps } = useField(name);
   const { onChange, onBlur } = getInputProps();
   const [toValidate, setToValidate] = useState<boolean>(false);
-  const validationFetcher =
-    useFetcher<{
-      valid: boolean;
-    }>();
+  const validationFetcher = useFetcher<{
+    valid: boolean;
+  }>();
   const onBlurHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     onBlur(event);
     if (!error && touched) {

@@ -1,8 +1,8 @@
-import type { ActionFunction } from "remix";
-import { db } from "~/utils/db.server";
-import { json } from "remix";
-import { auth } from "~/auth.server";
+import { json } from 'remix';
+import { auth } from '~/auth.server';
+import { db } from '~/utils/db.server';
 
+import type { ActionFunction } from "remix";
 type ActionData = {
   formError?: string;
   fieldErrors?: {
