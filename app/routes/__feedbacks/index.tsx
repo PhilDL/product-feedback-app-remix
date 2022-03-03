@@ -15,6 +15,7 @@ import {
   json,
   Outlet,
   Link,
+  useOutletContext,
 } from "remix";
 import type { LoaderFunction, ActionFunction } from "remix";
 import type { Category, Feedback, User } from "@prisma/client";
@@ -105,7 +106,6 @@ export let loader: LoaderFunction = async ({ request }) => {
     sort = "most-upvotes";
   }
   console.log("Index.tsx sort", sort);
-  const categoryId = url.searchParams.get("categoryId");
   const data: LoaderData = {
     feedbacks: await getFeedbacksWithCounts(sort),
     user: await auth.isAuthenticated(request),
@@ -114,7 +114,8 @@ export let loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Index() {
-  const { feedbacks, user } = useLoaderData<LoaderData>();
+  const { feedbacks } = useLoaderData<LoaderData>();
+  const { user } = useOutletContext<{ user: User }>();
 
   return (
     <main className="flex flex-col w-full gap-7">

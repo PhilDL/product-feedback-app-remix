@@ -55,7 +55,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <Outlet context={{ user }} />
         <Footer user={user} />
         <ScrollRestoration />
         <Scripts />

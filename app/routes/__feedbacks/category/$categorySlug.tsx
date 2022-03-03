@@ -1,7 +1,7 @@
 import FeedbacksListHeader from "~/components/FeedbacksListHeader";
 import FeedbacksList from "~/components/FeedbacksList";
 import { db, getFeedbacksWithCounts } from "~/utils/db.server";
-import { useLoaderData, Form, json } from "remix";
+import { useLoaderData, useOutletContext, json } from "remix";
 import type { LoaderFunction, ActionFunction } from "remix";
 import type { User } from "@prisma/client";
 import type { FeedbacksWithCounts } from "~/utils/db.server";
@@ -23,16 +23,15 @@ type ActionData = {
 
 const badRequest = (data: ActionData) => json(data, { status: 400 });
 
+export const handle = { id: "feedback-category-show" };
+
 export const action: ActionFunction = async ({ request }) => {
   const user = await auth.isAuthenticated(request, {
     failureRedirect: "/login",
   });
-  console.log("user", user);
   const form = await request.formData();
   let shouldUpvote = form.get("upvote") === "true";
   let feedbackId = form.get("feedbackId") as string;
-  console.log("feedbackId", feedbackId);
-  console.log("shouldUpvote", shouldUpvote);
 
   if (!feedbackId) {
     return badRequest({
@@ -65,7 +64,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export type LoaderData = {
   feedbacks: FeedbacksWithCounts;
-  user: User | null;
+  categorySlug: string;
 };
 
 export let loader: LoaderFunction = async ({ request, params }) => {
@@ -77,13 +76,14 @@ export let loader: LoaderFunction = async ({ request, params }) => {
   }
   const data: LoaderData = {
     feedbacks: await getFeedbacksWithCounts(sort, params.categorySlug),
-    user: await auth.isAuthenticated(request),
+    categorySlug: params.categorySlug,
   };
   return data;
 };
 
 export default function CategoryIndex() {
-  const { feedbacks, user } = useLoaderData<LoaderData>();
+  const { feedbacks } = useLoaderData<LoaderData>();
+  const { user } = useOutletContext<{ user: User }>();
 
   return (
     <main className="flex flex-col w-full gap-7">

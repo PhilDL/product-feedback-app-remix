@@ -1,29 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import Tag from "./UI/Tag";
 import Card from "./UI/Card";
 import type { Category } from "@prisma/client";
+import { useRouteData } from "remix-utils";
 
 export type TagsCloudProps = {
   tags: Category[];
-  selectedCategoryId?: string | null;
   className?: string;
 };
 
 const TagsCloud: React.FC<TagsCloudProps> = ({
   tags,
-  selectedCategoryId = null,
   className,
 }: TagsCloudProps) => {
-  const [selectedCategorySlug, setSelectedCategorySlug] =
-    useState<string | null>(selectedCategoryId);
-
-  const onChangeCategory = (slug: string | null) => {
-    setSelectedCategorySlug(slug);
-  };
+  let selectedCategorySlug: string | null = null;
+  const routeData: undefined | { categorySlug: string } = useRouteData(
+    "feedback-category-show"
+  );
+  if (routeData && routeData.categorySlug) {
+    selectedCategorySlug = routeData.categorySlug;
+  }
   return (
     <Card className={`flex-wrap gap-x-2 gap-y-3 ${className}`}>
       <Tag
-        onClick={() => onChangeCategory(null)}
         selected={
           selectedCategorySlug === null ||
           tags.filter((t) => t.slug === selectedCategorySlug).length === 0
@@ -36,7 +35,6 @@ const TagsCloud: React.FC<TagsCloudProps> = ({
       {tags.map((tag) => (
         <Tag
           key={tag.id}
-          onClick={() => onChangeCategory(tag.slug)}
           selected={tag.slug === selectedCategorySlug}
           slug={tag.slug}
         >

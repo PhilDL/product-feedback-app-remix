@@ -9,7 +9,6 @@ export type MobileMenuProps = {
   isOpen: boolean;
   onDismiss: () => void;
   categories: Category[];
-  selectedCategoryId: string | null;
   feedbackStatuses: FeedbackStatusAggregate[];
 };
 
@@ -17,7 +16,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   isOpen,
   onDismiss,
   categories,
-  selectedCategoryId,
   feedbackStatuses,
 }) => {
   if (!isOpen) {
@@ -34,11 +32,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
         aria-label="Navigation Menu"
         className="bg-gray-300 w-72 h-full p-6 flex flex-col justify-start gap-9 sm:hidden"
       >
-        <TagsCloud
-          tags={categories}
-          selectedCategoryId={selectedCategoryId}
-          className=""
-        />
+        <TagsCloud tags={categories} className="" />
         <RoadmapMenu feedbackStatuses={feedbackStatuses} className="" />
       </DialogContent>
     </DialogOverlay>

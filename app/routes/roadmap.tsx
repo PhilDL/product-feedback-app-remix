@@ -1,10 +1,10 @@
-import React, { useState, useMemo } from "react";
+import React from "react";
 import { db, getFeedbacksWithCountsAndStatus } from "~/utils/db.server";
-import { useLoaderData, json } from "remix";
+import { useLoaderData, json, useOutletContext } from "remix";
 import { GoBackLink, ButtonLink } from "~/components/UI";
 import { RoadmapFeedbacksList } from "~/components";
 import type { LoaderFunction, ActionFunction } from "remix";
-import type { Category, Feedback, User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import type { FeedbacksWithCounts } from "~/utils/db.server";
 import { auth } from "~/auth.server";
 import invariant from "tiny-invariant";
@@ -75,7 +75,6 @@ export interface FeedbackStatusAggregate {
 }
 export type LoaderData = {
   feedbackStatuses: FeedbackStatusAggregate[];
-  user?: User | null;
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
@@ -125,13 +124,13 @@ export let loader: LoaderFunction = async ({ request }) => {
   }
   const data: LoaderData = {
     feedbackStatuses: feedbackStatuses,
-    user: await auth.isAuthenticated(request),
   };
   return data;
 };
 
 export default function Index() {
-  const { feedbackStatuses, user } = useLoaderData<LoaderData>();
+  const { feedbackStatuses } = useLoaderData<LoaderData>();
+  const { user } = useOutletContext<{ user: User }>();
   const [selectedStatus, setSelectedStatus] =
     React.useState<string | null>(null);
 

@@ -25,11 +25,6 @@ export const validator = withYup(
   })
 );
 
-export type LoaderData = {
-  categories: Array<Category>;
-  user: User | null;
-};
-
 export const action: ActionFunction = async ({ request }) => {
   const user = await auth.isAuthenticated(request, {
     failureRedirect: "/login",
@@ -51,16 +46,19 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect("/");
 };
 
+export type LoaderData = {
+  categories: Array<Category>;
+};
+
 export let loader: LoaderFunction = async ({ request }) => {
   const data: LoaderData = {
     categories: await db.category.findMany(),
-    user: await auth.isAuthenticated(request, { failureRedirect: "/login" }),
   };
   return data;
 };
 
 const NewFeedback = () => {
-  const { user, categories } = useLoaderData<LoaderData>();
+  const { categories } = useLoaderData<LoaderData>();
 
   return (
     <div className="flex min-h-screen py-7 px-6 md:px-0 container mx-auto max-w-xl">
