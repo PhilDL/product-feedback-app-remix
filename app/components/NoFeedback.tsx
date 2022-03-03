@@ -1,4 +1,4 @@
-import Button from './UI/Button';
+import ButtonLink from './UI/ButtonLink';
 
 const NoFeedback = () => {
   return (
@@ -104,7 +104,9 @@ const NoFeedback = () => {
           hearing about new ideas to improve our app.
         </p>
       </div>
-      <Button role="primary">+ Add Feedback</Button>
+      <ButtonLink role="primary" to="/new-feedback">
+        + Add Feedback
+      </ButtonLink>
     </div>
   );
 };

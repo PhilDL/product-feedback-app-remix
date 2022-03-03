@@ -1167,10 +1167,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: hsl(230 86% 97% / 0.75);
 }
 
-.text-gray-300 {
-  color: hsla(230, 60%, 98%, 1);
-}
-
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;

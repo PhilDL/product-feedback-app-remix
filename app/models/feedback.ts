@@ -207,22 +207,21 @@ export const removeUpvoteFromFeedback = async (
 };
 
 export const deleteFeedback = async (feedbackId: string) => {
-  await db.feedback.update({
+  const deleteUpvotes = db.feedback.update({
     data: {
       upvotes: {
-        deleteMany: {},
-      },
-      comments: {
-        deleteMany: {},
+        set: [],
       },
     },
     where: {
       id: feedbackId,
     },
   });
-  return db.feedback.delete({
+  const deleteFeedback = db.feedback.delete({
     where: {
       id: feedbackId,
     },
   });
+
+  return await db.$transaction([deleteUpvotes, deleteFeedback]);
 };

@@ -51,8 +51,8 @@ model Comment {
   id         String    @id @default(uuid())
   createdAt  DateTime  @default(now())
   content    String
-  author     User      @relation(fields: [userId], references: [id])
-  feedback   Feedback  @relation(fields: [feedbackId], references: [id])
+  author     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feedback   Feedback  @relation(fields: [feedbackId], references: [id], onDelete: Cascade)
   userId     String
   feedbackId String
   replies    Comment[] @relation("replies")
