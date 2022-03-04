@@ -30,6 +30,24 @@ export const createUser = async ({
   });
 };
 
+export const createAdminUser = async ({
+  email,
+  avatarUrl,
+  fullName,
+  username,
+  passwordHash,
+}: {
+  email: string;
+  avatarUrl?: string;
+  fullName: string;
+  username: string;
+  passwordHash: string;
+}) => {
+  return db.user.create({
+    data: { email, avatarUrl, fullName, username, passwordHash, role: "ADMIN" },
+  });
+};
+
 export const getAllUsersWithCounts = () => {
   return db.user.findMany({
     include: {

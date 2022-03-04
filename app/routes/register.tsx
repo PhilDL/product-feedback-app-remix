@@ -1,11 +1,17 @@
-import { withYup } from '@remix-validated-form/with-yup';
-import bcrypt from 'bcryptjs';
-import { json, Link } from 'remix';
-import { ValidatedForm, validationError } from 'remix-validated-form';
-import * as Yup from 'yup';
-import { auth, sessionStorage } from '~/auth.server';
-import { AsyncValidatedTextField, Button, Card, GoBackLink, TextField } from '~/components/UI';
-import { createUser, findUserByEmail, findUserByUsername } from '~/models/user';
+import { withYup } from "@remix-validated-form/with-yup";
+import bcrypt from "bcryptjs";
+import { json, Link } from "remix";
+import { ValidatedForm, validationError } from "remix-validated-form";
+import * as Yup from "yup";
+import { auth, sessionStorage } from "~/auth.server";
+import {
+  AsyncValidatedTextField,
+  Button,
+  Card,
+  GoBackLink,
+  TextField,
+} from "~/components/UI";
+import { createUser, findUserByEmail, findUserByUsername } from "~/models/user";
 
 import type { ActionFunction, LoaderFunction } from "remix";
 
@@ -33,7 +39,6 @@ type LoaderData = {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  console.log("problematic");
   const form = await request.formData();
   const result = await validator.validate(form);
   if (result.error) return validationError(result.error);

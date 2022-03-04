@@ -1,17 +1,24 @@
-# fly.toml file generated for product-feedback-remix on 2022-03-03T10:25:25+01:00
+# fly.toml file generated for product-feedback-app-remix on 2022-03-04T17:06:52+01:00
 
-app = "product-feedback-remix"
+app = "product-feedback-app-remix"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
 [env]
-  DATABASE_URL="file:./production.db"
+  DATABASE_URL = "file:/data/sqlite.db"
+  PORT = "8080"
+  NODE_ENV = "production"
+  APP_ID = "3cec-6ZZmLD-09c9bc-601c23-Raiuzh-13iua-41014deb"
 
 [experimental]
-  allowed_public_ports = []
-  auto_rollback = true
+  cmd = "start_with_migrations.sh"
+  entrypoint = "sh"
+
+[[mounts]]
+  destination = "/data"
+  source = "data"
 
 [[services]]
   http_checks = []

@@ -9,7 +9,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   const user = await auth.isAuthenticated(request, {
     failureRedirect: "/login",
   });
-  console.log("user:", user);
   if (user.role !== "ADMIN") {
     throw unauthorized({ message: "Unauthorized" });
   }
@@ -56,7 +55,6 @@ const AdminPanel = () => {
       matchesWithHandleActionButtons[matchesWithHandleActionButtons.length - 1]
         .handle.actionButtons;
   }
-  console.log("actionsButtons", actionButtons);
   return (
     <div className="flex min-h-screen ">
       <nav className="flex flex-col gap-3 w-1/5 text-gray-700 bg-white ">

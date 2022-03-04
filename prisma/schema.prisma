@@ -59,3 +59,9 @@ model Comment {
   parent     Comment?  @relation("replies", fields: [parentId], references: [id])
   parentId   String?   @map("commentId")
 }
+
+model AppSettings {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  configured Boolean  @default(false)
+}
