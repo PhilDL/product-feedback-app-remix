@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export type ApplicationLogoProps = {
   className?: string;
@@ -6,6 +6,8 @@ export type ApplicationLogoProps = {
   mobileMenuVisible: boolean;
   onMobileMenuClick: () => void;
   onMobileMenuCloseClick: () => void;
+  rounded: boolean;
+  subTitle?: string;
 };
 
 const ApplicationLogo: React.FC<ApplicationLogoProps> = (props) => {
@@ -14,16 +16,22 @@ const ApplicationLogo: React.FC<ApplicationLogoProps> = (props) => {
     mobileMenuVisible,
     onMobileMenuClick,
     onMobileMenuCloseClick,
+    subTitle,
+    rounded,
     ...rest
   } = props;
 
   return (
     <div
-      className={`relative bg-theme-gradient sm:bg-theme-gradient-md lg:bg-theme-gradient-lg bg-no-repeat bg-cover w-full sm:rounded px-6 py-4 sm:py-6 ${className}`}
+      className={`relative bg-theme-gradient sm:bg-theme-gradient-md lg:bg-theme-gradient-lg bg-no-repeat bg-cover w-full ${
+        rounded ? "sm:rounded" : ""
+      } px-6 py-4 sm:py-6 ${className}`}
       {...rest}
     >
       <h1 className="text-white text-xl font-bold sm:mt-6">Frontend Mentor</h1>
-      <span className="text-white/75 font-medium">Feedback board</span>
+      <span className="text-white/75 font-medium">
+        {subTitle ? subTitle : "Feedback board"}
+      </span>
       {mobileMenuVisible === true ? (
         <button
           className="sm:hidden absolute right-6 top-8"

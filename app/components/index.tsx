@@ -12,3 +12,4 @@ export { default as RoadmapFeedback } from "./RoadmapFeedback";
 export { default as RoadmapFeedbacksList } from "./RoadmapFeedbacksList";
 export { default as RoadmapMenu } from "./RoadmapMenu";
 export { default as TagsCloud } from "./TagsCloud";
+export { default as AdminDataTable } from "./AdminDataTable";

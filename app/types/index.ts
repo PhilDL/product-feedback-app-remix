@@ -1,6 +1,12 @@
-import { Prisma } from '@prisma/client';
-import { getAllCommentsForFeedbackId } from '~/models/comment';
-import { getFeedbackBySlug, getFeedbackStatuses, getFeedbacksWithCounts } from '~/models/feedback';
+import { Prisma } from "@prisma/client";
+import { getAllCommentsForFeedbackId } from "~/models/comment";
+import {
+  getFeedbackBySlug,
+  getFeedbackStatuses,
+  getFeedbacksWithCounts,
+} from "~/models/feedback";
+import { getAllCategoriesWithCount } from "~/models/category";
+import { getAllUsersWithCounts } from "~/models/user";
 
 import type {
   Category as PrismaCategory,
@@ -25,6 +31,12 @@ export type FeedbackWithCountsOrNull = ThenArg<
 export type FeedbackComments = ThenArg<
   ReturnType<typeof getAllCommentsForFeedbackId>
 >;
+
+export type CategoriesWithCounts = ThenArg<
+  ReturnType<typeof getAllCategoriesWithCount>
+>;
+
+export type UsersWithCounts = ThenArg<ReturnType<typeof getAllUsersWithCounts>>;
 
 const commentWithAuthorAndParent = Prisma.validator<Prisma.CommentArgs>()({
   include: {
@@ -59,6 +71,29 @@ const feedbacksWithCounts = Prisma.validator<Prisma.FeedbackArgs>()({
 export type FeedbackWithCounts = Prisma.FeedbackGetPayload<
   typeof feedbacksWithCounts
 >;
+
+const categoriesWithCounts = Prisma.validator<Prisma.CategoryArgs>()({
+  include: {
+    _count: {
+      select: { feedbacks: true },
+    },
+    feedbacks: true,
+  },
+});
+
+export type CategoryWithCounts = Prisma.CategoryGetPayload<
+  typeof categoriesWithCounts
+>;
+
+const usersWithCounts = Prisma.validator<Prisma.UserArgs>()({
+  include: {
+    _count: {
+      select: { upvotes: true, feedbacks: true, comments: true },
+    },
+  },
+});
+
+export type UserWithCounts = Prisma.UserGetPayload<typeof usersWithCounts>;
 
 export type FeedbackStatuses = ThenArg<ReturnType<typeof getFeedbackStatuses>>;
 

@@ -20,8 +20,8 @@ model User {
   passwordHash String
   role         String     @default("USER")
   upvotes      Feedback[] @relation(references: [id])
-  Comment      Comment[]
-  Feedback     Feedback[] @relation("author")
+  comments     Comment[]
+  feedbacks    Feedback[] @relation("author")
 }
 
 model Category {

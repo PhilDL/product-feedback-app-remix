@@ -1,6 +1,7 @@
 export { default as ApplicationLogo } from "./ApplicationLogo";
 export { default as Button } from "./Button";
 export { default as ButtonLink } from "./ButtonLink";
+export { default as BasicLink } from "./BasicLink";
 export { default as Card } from "./Card";
 export { default as GoBackLink } from "./GoBackLink";
 export { default as SelectField } from "./SelectField";
@@ -13,3 +14,4 @@ export { default as Upvote } from "./Upvote";
 export { default as Alert } from "./Alert";
 export { default as AsyncValidatedTextField } from "./AsyncValidatedTextField";
 export { default as AlertDialogConfirm } from "./AlertDialogConfirm";
+export { default as Breadcrumb } from "./Breadcrumb";

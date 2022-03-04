@@ -1,4 +1,4 @@
-import { db } from './db.server';
+import { db } from "./db.server";
 
 export const findUserByEmail = async (email: string) => {
   return db.user.findUnique({
@@ -27,5 +27,15 @@ export const createUser = async ({
 }) => {
   return db.user.create({
     data: { email, avatarUrl, fullName, username, passwordHash },
+  });
+};
+
+export const getAllUsersWithCounts = () => {
+  return db.user.findMany({
+    include: {
+      _count: {
+        select: { upvotes: true, feedbacks: true, comments: true },
+      },
+    },
   });
 };
