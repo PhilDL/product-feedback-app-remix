@@ -9,23 +9,15 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-} from 'remix';
+} from "remix";
 
-import { auth } from './auth.server';
-import Footer from './components/Footer';
-import styles from './tailwind.css';
+import { auth } from "./auth.server";
+import Footer from "./components/Footer";
+import styles from "./tailwind.css";
 
 import type { MetaFunction } from "remix";
 export function links() {
-  return [
-    { rel: "stylesheet", href: styles },
-    { rel: "preconnect", href: "https://fonts.googleapis.com" },
-    { rel: "preconnect", href: "https://fonts.gstatic.com" },
-    {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap",
-    },
-  ];
+  return [{ rel: "stylesheet", href: styles }];
 }
 
 export const meta: MetaFunction = () => {

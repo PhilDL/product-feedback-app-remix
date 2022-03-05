@@ -17,7 +17,7 @@ const ApplicationLogo: React.FC<ApplicationLogoProps> = (props) => {
     onMobileMenuClick,
     onMobileMenuCloseClick,
     subTitle,
-    rounded,
+    rounded = true,
     ...rest
   } = props;
 
