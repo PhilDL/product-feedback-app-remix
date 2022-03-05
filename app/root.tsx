@@ -52,7 +52,7 @@ export default function App() {
         <Footer user={user} />
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
+        {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
   );
