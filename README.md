@@ -1,53 +1,87 @@
-# Welcome to Remix!
+# Frontend Mentor - Product feedback app solution
 
-- [Remix Docs](https://remix.run/docs)
+This is a solution to the [Product feedback app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/product-feedback-app-wbvUYqjR6), for my personal Frontend Training routine.
 
-## Development
+## Table of contents
 
-From your terminal:
+- [Frontend Mentor - Product feedback app solution](#frontend-mentor---product-feedback-app-solution)
+  - [Table of contents](#table-of-contents)
+  - [Overview](#overview)
+    - [The challenge](#the-challenge)
+    - [Screenshot](#screenshot)
+      - [Desktop](#desktop)
+      - [Mobile](#mobile)
+    - [Links](#links)
+  - [My process](#my-process)
+    - [Built with](#built-with)
+    - [What I learned](#what-i-learned)
+    - [Continued development](#continued-development)
+  - [Author](#author)
+  - [Acknowledgments](#acknowledgments)
 
-```sh
-npm run dev
-```
+## Overview
 
-This starts your app in development mode, rebuilding assets on file changes.
+### The challenge
 
-## Deployment
+Users should be able to:
 
-First, build your app for production:
+- View the optimal layout for the app depending on their device's screen size
+- See hover states for all interactive elements on the page
+- Create, read, update, and delete product feedback requests
+- Receive form validations when trying to create/edit feedback requests
+- Sort suggestions by most/least upvotes and most/least comments
+- Filter suggestions by category
+- Add comments and replies to a product feedback request
+- Upvote product feedback requests
+- **Bonus**: Keep track of any changes, even after refreshing the browser (`localStorage` could be used for this if you're not building out a full-stack app)
 
-```sh
-npm run build
-```
+### Screenshot
 
-Then run the app in production mode:
+#### Desktop
+![Desktop Version](./public/image.png)
 
-```sh
-npm start
-```
+#### Mobile
+![Mobile Version](./public/image-mobile.png)
 
-Now you'll need to pick a host to deploy it to.
 
-### DIY
+### Links
 
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
+- Live Site URL: [https://product-feedback-app-remix.fly.dev/](https://product-feedback-app-remix.fly.dev/)
+- Live Storybook URL: [https://main--6219d1181996c3003a295003.chromatic.com](https://main--6219d1181996c3003a295003.chromatic.com)
 
-Make sure to deploy the output of `remix build`
+## My process
 
-- `build/`
-- `public/build/`
+### Built with
 
-### Using a Template
+- Semantic HTML5 markup
+- Flexbox
+- Mobile-first workflow
+- Accessibility
+- TypeScript
+- [React](https://reactjs.org/) - JS library
+- [Remix](https://remix.run/) - React framework
+- [TailwindCSS 3](https://tailwindcss.com/) - For styles
+- [Prisma](https://www.prisma.io/) - For Database and SQLite
+- [Storybook](https://storybook.js.org) - Storybook: UI component explorer for frontend developers
 
-When you ran `npx create-remix@latest` there were a few choices for hosting. You can run that again to create a new project, then copy over your `app/` folder to the new project that's pre-configured for your target server.
+### What I learned
 
-```sh
-cd ..
-# create a new project, and pick a pre-configured host
-npx create-remix@latest
-cd my-new-remix-app
-# remove the new project's app (not the old one!)
-rm -rf app
-# copy your app over
-cp -R ../my-old-remix-app/app app
-```
+My initial requirement was to practice some TypeScript, so I used a lot (https://react-typescript-cheatsheet.netlify.app/)[https://react-typescript-cheatsheet.netlify.app/] and tried to apply some of the good practices.
+
+I wasn't sure wich technology between Remix and NextJS to practice/learn so i begin by doing a Design System of React components with StoryBook and Tailwind (easier to migrate between Next and Remix, i also wanted to use something else than styled components). The goal was to make a Fullstack App.
+
+
+### Continued development
+
+- I would like to make some refactoring into hooks to clean up code.
+- Storybook is now broken, some of the Components need special Context and i'm not proud about that. I would like them to be the most presentationnal possible but i still need some work.
+
+## Author
+
+- Website - [Coding Dodo](https://codingdodo.com)
+- Twitter - [@_philDL_](https://twitter.com/_philDL)
+
+
+## Acknowledgments
+
+Thanks to Josh from the [CSS For JS Dev course](https://courses.joshwcomeau.com/css-for-js) for this amazing ressource.
